@@ -1,0 +1,77 @@
+# Node docker image on which our code would run
+image: node:12.21.0
+
+stages:
+  - build
+  - compact
+  - deploy
+
+build_staging:
+  stage: build
+  environment:
+    name: staging
+  only:
+    - develop
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+build_prod:
+  stage: build
+  environment:
+    name: prod
+  only:
+    - main
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+compact_prod:
+  stage: compact
+  environment:
+    name: prod
+  only:
+    - main
+  dependencies:
+    - build_prod
+  script:
+    - export VERSION=`date "+%Y%m%d-%H%M%S"`
+    - export VERSION_LABEL_BACKEND=Tcc_Backend_Prod-$VERSION
+    - export ZIP_BACKEND=$VERSION_LABEL_BACKEND.zip
+    - apt-get update --assume-yes
+    - apt-get install zip --assume-yes
+    - apt-get install python-pip --assume-yes
+    - zip -r $ZIP_BACKEND .npmrc index.js dist/backend/ public/ .ebextensions/ package.json package-lock.json
+    - pip install awscli
+    - aws s3 cp $ZIP_BACKEND s3://$S3_BUCKET_NAME/
+    - aws elasticbeanstalk create-application-version --application-name $ELASTIC_BEANSTALK_PROD_NAME --version-label $VERSION_LABEL_BACKEND --description "$(git log -1 --pretty=%B)" --source-bundle S3Bucket="$S3_BUCKET_NAME",S3Key="$ZIP_BACKEND" --region $AWS_REGION
+    - echo "$VERSION_LABEL_BACKEND" > label.backend.txt
+  artifacts:
+    paths:
+      - label.backend.txt
+
+deploy_prod:
+  stage: deploy
+  environment:
+    name: prod
+  only:
+    - main
+  dependencies:
+    - compact_prod
+  script:
+    - export CURRENT_PATH=$(pwd)
+    - export VERSION_LABEL_BACKEND=$(cat "label.backend.txt")
+    - echo $VERSION_LABEL_BACKEND
+    - apt-get update --assume-yes
+    - apt-get install unzip --assume-yes
+    - apt-get install python-pip --assume-yes
+    - pip install awscli
+    - echo Inicio do deploy do Backend
+    - aws elasticbeanstalk update-environment --environment-id $PROD_ENV_ID --version-label $VERSION_LABEL_BACKEND --region $AWS_REGION
+    - echo Fim do deploy do Backend
