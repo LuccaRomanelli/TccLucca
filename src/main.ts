@@ -12,6 +12,7 @@ async function bootstrap() {
     forbidUnknownValues: true,
     whitelist: true,
   }));
+  app.enableCors();
   await app.listen(3000);
   
 }
