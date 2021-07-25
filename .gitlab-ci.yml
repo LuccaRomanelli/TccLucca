@@ -65,7 +65,6 @@ deploy_prod:
   dependencies:
     - compact_prod
   script:
-    - export CURRENT_PATH=$(pwd)
     - export VERSION_LABEL_BACKEND=$(cat "label.backend.txt")
     - echo $VERSION_LABEL_BACKEND
     - apt-get update --assume-yes
