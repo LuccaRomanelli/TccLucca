@@ -6,16 +6,19 @@ import {
     Delete,
     Body,
     HttpException, 
-    Param} from '@nestjs/common';
+    Param,
+    UseGuards} from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { UserService } from '../Service';
 import { CreateUserDTO, UpdateUserDTO, UserIdPath } from '../Models';
 import { UserEntity } from '../Entity';
+import { JwtWebAuthGuard } from 'src/auth/Guard';
  
 @Controller('user')
 export class UserController {
     constructor(private readonly userService:UserService ){ }
 
+    @UseGuards(JwtWebAuthGuard)
     @Post()
     async createUser(@Body() newUser:CreateUserDTO ):Promise<UserEntity>{
         try{
@@ -29,6 +32,7 @@ export class UserController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Put(':id')
     async updateUser( @Param() userId:UserIdPath, @Body() userToUpdate:UpdateUserDTO ):Promise<UpdateResult>{
         try{
@@ -45,6 +49,7 @@ export class UserController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Get()
     async getAllUser():Promise<UserEntity[]>{
         try{
@@ -58,6 +63,7 @@ export class UserController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Get(':id')
     async getUserById( @Param() userId:UserIdPath):Promise<UserEntity>{
         try{
@@ -71,6 +77,7 @@ export class UserController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Delete(':id')
     async deleteUserById( @Param() userId:UserIdPath):Promise<DeleteResult>{
         try{

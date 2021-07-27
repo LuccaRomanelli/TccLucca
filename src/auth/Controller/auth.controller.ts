@@ -1,15 +1,19 @@
-import { Controller, Get, HttpException } from '@nestjs/common';
+import { Controller, Post, HttpException, HttpCode, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from '../Services';
+import { CredentialsResponseDTO } from '../Models'
+import { JwtWebAuthGuard, LocalAuthGuard } from '../Guard'
 
 
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService:AuthService ){ }
 
-    @Get('teste')
-    teste():string{
+    @UseGuards(LocalAuthGuard)
+    @HttpCode(200)    
+    @Post('login')
+    async login(@Request() req):Promise<CredentialsResponseDTO>{
         try{
-            const Response=this.authService.teste();
+            const Response= await this.authService.login(req.user);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -19,6 +23,19 @@ export class AuthController {
         }
     }
 
-
+    @UseGuards(JwtWebAuthGuard)
+    @HttpCode(200)
+    @Post('refresh')
+    async refresh(@Request() req):Promise<CredentialsResponseDTO>{
+        try{
+            const Response= await this.authService.refresh(req.user);
+            return Response
+        } catch (err) {
+            if (err instanceof HttpException) {
+                throw err
+            }                 
+            throw new HttpException(err.message, 400)
+        }
+    }
 
 }
