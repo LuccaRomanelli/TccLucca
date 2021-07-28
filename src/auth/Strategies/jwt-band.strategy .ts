@@ -5,7 +5,7 @@ import { JWTBandPayload } from '../Module';
 import { AuthService } from '../Services';
 
 @Injectable()
-export class JwtBandStrategy extends PassportStrategy(Strategy) {
+export class JwtBandStrategy extends PassportStrategy(Strategy,'JwtBandStrategy') {
   constructor(
       private readonly authService:AuthService
   ) {
