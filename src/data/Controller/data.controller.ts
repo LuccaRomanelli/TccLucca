@@ -4,15 +4,18 @@ import {
     Post,
     Body,
     HttpException, 
-    Param} from '@nestjs/common';
+    Param,
+    UseGuards} from '@nestjs/common';
 import { DataService } from '../Service';
 import { CreateDataDTO, DataIdPath } from '../Models';
 import { DataEntity } from '../Entity';
+import { JwtBandAuthGuard, JwtWebAuthGuard } from 'src/auth/Guard';
  
 @Controller('data')
 export class DataController {
     constructor(private readonly dataService:DataService ){ }
 
+    @UseGuards(JwtBandAuthGuard)
     @Post()
     async createData(@Body() newData:CreateDataDTO ):Promise<DataEntity>{
         try{
@@ -26,6 +29,7 @@ export class DataController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Get()
     async getAllData():Promise<DataEntity[]>{
         try{
@@ -39,6 +43,7 @@ export class DataController {
         }
     }
 
+    @UseGuards(JwtWebAuthGuard)
     @Get(':id')
     async getDataById( @Param() dataId:DataIdPath):Promise<DataEntity>{
         try{
