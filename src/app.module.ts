@@ -17,7 +17,7 @@ import 'dotenv/config';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [UserEntity, DataEntity],
-      synchronize: Boolean(process.env.DB_ENABLE_MIGRATION),
+      synchronize: JSON.parse(process.env.DB_ENABLE_MIGRATION),
     }),
   ],
   controllers: [AppController],
