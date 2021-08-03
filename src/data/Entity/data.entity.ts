@@ -33,6 +33,6 @@ export class DataEntity {
   oximetry: string;
 
   @Column()
-  respiratory_rate: string;
+  blood_pressure: string;
 
 }
