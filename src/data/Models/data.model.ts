@@ -31,7 +31,7 @@ export class CreateDataDTO {
     oximetry: string;
   
     @IsNotEmpty()
-    respiratory_rate: string;
+    blood_pressure: string;
 }
 
 export class DataIdPath {
