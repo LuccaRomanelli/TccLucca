@@ -50,7 +50,7 @@ export class PacienteService {
         try {
             const Response = await this.pacientesRepository.findOne(pacienteId.id)
             if(!Response){
-                throw new HttpException('Usuário não encontrado',404)
+                throw new HttpException('Paciente não encontrado',404)
             }
             return Response
         } catch (err){

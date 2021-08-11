@@ -50,7 +50,7 @@ export class PulseiraService {
         try {
             const Response = await this.pulseirasRepository.findOne(pulseiraId.id)
             if(!Response){
-                throw new HttpException('Usuário não encontrado',404)
+                throw new HttpException('Pulseira não encontrado',404)
             }
             return Response
         } catch (err){

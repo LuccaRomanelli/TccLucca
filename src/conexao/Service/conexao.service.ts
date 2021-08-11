@@ -57,7 +57,7 @@ export class ConexaoService {
                 }
             })
             if(!Response){
-                throw new HttpException('Usuário não encontrado',404)
+                throw new HttpException('Sem conexao aberta para esse paciente',404)
             }
             return Response
         } catch (err){
@@ -71,7 +71,7 @@ export class ConexaoService {
         try {
             const Response = await this.conexaosRepository.findOne(conexaoId.id)
             if(!Response){
-                throw new HttpException('Usuário não encontrado',404)
+                throw new HttpException('Sem conexao para esse Id',404)
             }
             return Response
         } catch (err){
