@@ -2,49 +2,45 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class DataEntity {
+export class PacienteEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
 
   @Column()
   @ApiProperty()
-  node: string;
+  nome: string;
 
   @Column()
   @ApiProperty()
-  time_utc: string;
+  idade: number;
 
   @Column()
   @ApiProperty()
-  seqno: string;
+  sexo: string;
 
   @Column()
   @ApiProperty()
-  rssi: string;
+  telefone: string;
 
   @Column()
   @ApiProperty()
-  snr: string;
+  contatoEmergencia: string;
+
+  @Column()
+  @ApiProperty()  
+  telefoneEmergencia: string;
 
   @Column()
   @ApiProperty()
-  senStatus: string;
+  cpf: string;
 
   @Column()
   @ApiProperty()
-  heart_Rate: string;
+  sintomas: string;
 
   @Column()
   @ApiProperty()
-  temperature_degC: string;
-
-  @Column()
-  @ApiProperty()
-  oximetry: string;
-
-  @Column()
-  @ApiProperty()
-  blood_pressure: string;
+  historico: string;
 
 }

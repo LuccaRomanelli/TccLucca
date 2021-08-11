@@ -9,27 +9,27 @@ import {
     Param,
     UseGuards} from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
-import { UserService } from '../Service';
-import { CreateUserDTO, UpdateUserDTO, UserIdPath } from '../Models';
-import { UserEntity } from '../Entity';
+import { PulseiraService } from '../Service';
+import { CreatePulseiraDTO, UpdatePulseiraDTO, PulseiraIdPath } from '../Models';
+import { PulseiraEntity } from '../Entity';
 import { JwtWebAuthGuard } from 'src/auth/Guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
  
-@Controller('user')
-export class UserController {
-    constructor(private readonly userService:UserService ){ }
+@Controller('pulseira')
+export class PulseiraController {
+    constructor(private readonly pulseiraService:PulseiraService ){ }
 
     @UseGuards(JwtWebAuthGuard)
     @Post()
-    @ApiTags('user')
+    @ApiTags('pulseira')
     @ApiResponse({ 
         status: 201, 
         description: 'Pulseora criada',
-        type: UserEntity
+        type: PulseiraEntity
         })
-    async createUser(@Body() newUser:CreateUserDTO ):Promise<UserEntity>{
+    async createPulseira(@Body() newPulseira:CreatePulseiraDTO ):Promise<PulseiraEntity>{
         try{
-            const Response= await this.userService.createUser(newUser);
+            const Response= await this.pulseiraService.createPulseira(newPulseira);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -40,19 +40,19 @@ export class UserController {
     }
 
     @UseGuards(JwtWebAuthGuard)
-    @Put(':id')
-    @ApiTags('user')
+    @ApiTags('pulseira')
     @ApiResponse({ 
         status: 201, 
-        description: 'Pulseora criada',
-        type: UserEntity
+        description: 'Pulseora editada',
+        type: PulseiraEntity
         })
-    async updateUser( @Param() userId:UserIdPath, @Body() userToUpdate:UpdateUserDTO ):Promise<UpdateResult>{
+    @Put(':id')
+    async updatePulseira( @Param() pulseiraId:PulseiraIdPath, @Body() pulseiraToUpdate:UpdatePulseiraDTO ):Promise<UpdateResult>{
         try{
-            if(!Object.keys(userToUpdate).length){
+            if(!Object.keys(pulseiraToUpdate).length){
                 throw new HttpException("Nada para atualizar", 400) 
             }
-            const Response= await this.userService.updateUserById(userId, userToUpdate);
+            const Response= await this.pulseiraService.updatePulseiraById(pulseiraId, pulseiraToUpdate);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -64,10 +64,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get()
-    @ApiTags('user')
-    async getAllUser():Promise<UserEntity[]>{
+    @ApiTags('pulseira')
+    async getAllPulseira():Promise<PulseiraEntity[]>{
         try{
-            const Response= await this.userService.getAllUsers();
+            const Response= await this.pulseiraService.getAllPulseiras();
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -79,10 +79,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get(':id')
-    @ApiTags('user')
-    async getUserById( @Param() userId:UserIdPath):Promise<UserEntity>{
+    @ApiTags('pulseira')
+    async getPulseiraById( @Param() pulseiraId:PulseiraIdPath):Promise<PulseiraEntity>{
         try{
-            const Response= await this.userService.getUserById(userId);
+            const Response= await this.pulseiraService.getPulseiraById(pulseiraId);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -94,10 +94,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Delete(':id')
-    @ApiTags('user')
-    async deleteUserById( @Param() userId:UserIdPath):Promise<DeleteResult>{
+    @ApiTags('pulseira')
+    async deletePulseiraById( @Param() pulseiraId:PulseiraIdPath):Promise<DeleteResult>{
         try{
-            const Response= await this.userService.deleteUserById(userId);
+            const Response= await this.pulseiraService.deletePulseiraById(pulseiraId);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {

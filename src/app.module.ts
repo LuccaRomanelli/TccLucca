@@ -6,9 +6,12 @@ import { UserModule, UserEntity } from './user';
 import { DataEntity, DataModule } from './data';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config';
+import { PulseiraEntity, PulseiraModule } from './pulseira';
+import { PacienteEntity, PacienteModule } from './paciente';
+import { ConexaoEntity, ConexaoModule } from './conexao';
 
 @Module({
-  imports: [AuthModule, UserModule, DataModule, 
+  imports: [AuthModule, UserModule, DataModule, PulseiraModule, PacienteModule, ConexaoModule,
     TypeOrmModule.forRoot({
       type: 'mariadb',
       host: process.env.DB_HOST,
@@ -16,7 +19,7 @@ import 'dotenv/config';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [UserEntity, DataEntity],
+      entities: [UserEntity, DataEntity, PulseiraEntity, PacienteEntity, ConexaoEntity],
       synchronize: JSON.parse(process.env.DB_ENABLE_MIGRATION),
     }),
   ],

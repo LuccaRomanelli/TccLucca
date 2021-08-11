@@ -2,20 +2,17 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class UserEntity {
+export class PulseiraEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   @ApiProperty()
-  email: string;
+  node: string;
 
   @Column()
   @ApiProperty()
-  password: string;
+  status: string;
 
-  @Column()
-  @ApiProperty()
-  role: string;
 }

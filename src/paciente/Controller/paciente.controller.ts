@@ -9,27 +9,27 @@ import {
     Param,
     UseGuards} from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
-import { UserService } from '../Service';
-import { CreateUserDTO, UpdateUserDTO, UserIdPath } from '../Models';
-import { UserEntity } from '../Entity';
+import { PacienteService } from '../Service';
+import { CreatePacienteDTO, UpdatePacienteDTO, PacienteIdPath } from '../Models';
+import { PacienteEntity } from '../Entity';
 import { JwtWebAuthGuard } from 'src/auth/Guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
  
-@Controller('user')
-export class UserController {
-    constructor(private readonly userService:UserService ){ }
+@Controller('paciente')
+export class PacienteController {
+    constructor(private readonly pacienteService:PacienteService ){ }
 
     @UseGuards(JwtWebAuthGuard)
     @Post()
-    @ApiTags('user')
+    @ApiTags('paciente')
     @ApiResponse({ 
         status: 201, 
-        description: 'Pulseora criada',
-        type: UserEntity
+        description: 'Paciente criado',
+        type: PacienteEntity
         })
-    async createUser(@Body() newUser:CreateUserDTO ):Promise<UserEntity>{
+    async createPaciente(@Body() newPaciente:CreatePacienteDTO ):Promise<PacienteEntity>{
         try{
-            const Response= await this.userService.createUser(newUser);
+            const Response= await this.pacienteService.createPaciente(newPaciente);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -41,18 +41,18 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Put(':id')
-    @ApiTags('user')
+    @ApiTags('paciente')
     @ApiResponse({ 
         status: 201, 
-        description: 'Pulseora criada',
-        type: UserEntity
+        description: 'Paciente alterado',
+        type: PacienteEntity
         })
-    async updateUser( @Param() userId:UserIdPath, @Body() userToUpdate:UpdateUserDTO ):Promise<UpdateResult>{
+    async updatePaciente( @Param() pacienteId:PacienteIdPath, @Body() pacienteToUpdate:UpdatePacienteDTO ):Promise<UpdateResult>{
         try{
-            if(!Object.keys(userToUpdate).length){
+            if(!Object.keys(pacienteToUpdate).length){
                 throw new HttpException("Nada para atualizar", 400) 
             }
-            const Response= await this.userService.updateUserById(userId, userToUpdate);
+            const Response= await this.pacienteService.updatePacienteById(pacienteId, pacienteToUpdate);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -64,10 +64,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get()
-    @ApiTags('user')
-    async getAllUser():Promise<UserEntity[]>{
+    @ApiTags('paciente')
+    async getAllPaciente():Promise<PacienteEntity[]>{
         try{
-            const Response= await this.userService.getAllUsers();
+            const Response= await this.pacienteService.getAllPacientes();
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -79,10 +79,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get(':id')
-    @ApiTags('user')
-    async getUserById( @Param() userId:UserIdPath):Promise<UserEntity>{
+    @ApiTags('paciente')
+    async getPacienteById( @Param() pacienteId:PacienteIdPath):Promise<PacienteEntity>{
         try{
-            const Response= await this.userService.getUserById(userId);
+            const Response= await this.pacienteService.getPacienteById(pacienteId);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
@@ -94,10 +94,10 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Delete(':id')
-    @ApiTags('user')
-    async deleteUserById( @Param() userId:UserIdPath):Promise<DeleteResult>{
+    @ApiTags('paciente')
+    async deletePacienteById( @Param() pacienteId:PacienteIdPath):Promise<DeleteResult>{
         try{
-            const Response= await this.userService.deleteUserById(userId);
+            const Response= await this.pacienteService.deletePacienteById(pacienteId);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
