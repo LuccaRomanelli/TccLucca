@@ -13,6 +13,7 @@ import { UserService } from '../Service';
 import { CreateUserDTO, UpdateUserDTO, UserIdPath } from '../Models';
 import { UserEntity } from '../Entity';
 import { JwtWebAuthGuard } from 'src/auth/Guard';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
  
 @Controller('user')
 export class UserController {
@@ -20,6 +21,12 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Post()
+    @ApiTags('user')
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Pulseora criada',
+        type: UserEntity
+        })
     async createUser(@Body() newUser:CreateUserDTO ):Promise<UserEntity>{
         try{
             const Response= await this.userService.createUser(newUser);
@@ -34,6 +41,12 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Put(':id')
+    @ApiTags('user')
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Pulseora criada',
+        type: UserEntity
+        })
     async updateUser( @Param() userId:UserIdPath, @Body() userToUpdate:UpdateUserDTO ):Promise<UpdateResult>{
         try{
             if(!Object.keys(userToUpdate).length){
@@ -51,6 +64,7 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get()
+    @ApiTags('user')
     async getAllUser():Promise<UserEntity[]>{
         try{
             const Response= await this.userService.getAllUsers();
@@ -65,6 +79,7 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get(':id')
+    @ApiTags('user')
     async getUserById( @Param() userId:UserIdPath):Promise<UserEntity>{
         try{
             const Response= await this.userService.getUserById(userId);
@@ -79,6 +94,7 @@ export class UserController {
 
     @UseGuards(JwtWebAuthGuard)
     @Delete(':id')
+    @ApiTags('user')
     async deleteUserById( @Param() userId:UserIdPath):Promise<DeleteResult>{
         try{
             const Response= await this.userService.deleteUserById(userId);

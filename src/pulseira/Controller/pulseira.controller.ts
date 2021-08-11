@@ -13,6 +13,7 @@ import { PulseiraService } from '../Service';
 import { CreatePulseiraDTO, UpdatePulseiraDTO, PulseiraIdPath } from '../Models';
 import { PulseiraEntity } from '../Entity';
 import { JwtWebAuthGuard } from 'src/auth/Guard';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
  
 @Controller('pulseira')
 export class PulseiraController {
@@ -20,6 +21,12 @@ export class PulseiraController {
 
     @UseGuards(JwtWebAuthGuard)
     @Post()
+    @ApiTags('pulseira')
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Pulseora criada',
+        type: PulseiraEntity
+        })
     async createPulseira(@Body() newPulseira:CreatePulseiraDTO ):Promise<PulseiraEntity>{
         try{
             const Response= await this.pulseiraService.createPulseira(newPulseira);
@@ -33,6 +40,12 @@ export class PulseiraController {
     }
 
     @UseGuards(JwtWebAuthGuard)
+    @ApiTags('pulseira')
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Pulseora editada',
+        type: PulseiraEntity
+        })
     @Put(':id')
     async updatePulseira( @Param() pulseiraId:PulseiraIdPath, @Body() pulseiraToUpdate:UpdatePulseiraDTO ):Promise<UpdateResult>{
         try{
@@ -51,6 +64,7 @@ export class PulseiraController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get()
+    @ApiTags('pulseira')
     async getAllPulseira():Promise<PulseiraEntity[]>{
         try{
             const Response= await this.pulseiraService.getAllPulseiras();
@@ -65,6 +79,7 @@ export class PulseiraController {
 
     @UseGuards(JwtWebAuthGuard)
     @Get(':id')
+    @ApiTags('pulseira')
     async getPulseiraById( @Param() pulseiraId:PulseiraIdPath):Promise<PulseiraEntity>{
         try{
             const Response= await this.pulseiraService.getPulseiraById(pulseiraId);
@@ -79,6 +94,7 @@ export class PulseiraController {
 
     @UseGuards(JwtWebAuthGuard)
     @Delete(':id')
+    @ApiTags('pulseira')
     async deletePulseiraById( @Param() pulseiraId:PulseiraIdPath):Promise<DeleteResult>{
         try{
             const Response= await this.pulseiraService.deletePulseiraById(pulseiraId);

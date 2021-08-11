@@ -10,12 +10,19 @@ import { DataService } from '../Service';
 import { CreateDataDTO, DataIdPath } from '../Models';
 import { DataEntity } from '../Entity';
 import { JwtBandAuthGuard, JwtWebAuthGuard } from 'src/auth/Guard';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
  
 @Controller('data')
 export class DataController {
     constructor(private readonly dataService:DataService ){ }
 
     @UseGuards(JwtBandAuthGuard)
+    @ApiTags('data')
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Dado criado',
+        type: DataEntity
+        })
     @Post()
     async createData(@Body() newData:CreateDataDTO ):Promise<DataEntity>{
         try{
@@ -30,6 +37,7 @@ export class DataController {
     }
 
     @UseGuards(JwtWebAuthGuard)
+    @ApiTags('data')
     @Get()
     async getAllData():Promise<DataEntity[]>{
         try{
@@ -44,6 +52,7 @@ export class DataController {
     }
 
     @UseGuards(JwtWebAuthGuard)
+    @ApiTags('data')
     @Get(':id')
     async getDataById( @Param() dataId:DataIdPath):Promise<DataEntity>{
         try{

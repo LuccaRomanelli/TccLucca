@@ -2,6 +2,7 @@ import { Controller, Post, HttpException, HttpCode, Request, UseGuards } from '@
 import { AuthService } from '../Services';
 import { CredentialsResponseDTO } from '../Models'
 import { JwtWebAuthGuard, LocalAuthGuard } from '../Guard'
+import { ApiBody, ApiTags, getSchemaPath } from '@nestjs/swagger';
 
 
 @Controller('auth')
@@ -9,7 +10,8 @@ export class AuthController {
     constructor(private readonly authService:AuthService ){ }
 
     @UseGuards(LocalAuthGuard)
-    @HttpCode(200)    
+    @HttpCode(200)
+    @ApiTags('auth')   
     @Post('login')
     async login(@Request() req):Promise<CredentialsResponseDTO>{
         try{
@@ -25,6 +27,7 @@ export class AuthController {
 
     @UseGuards(JwtWebAuthGuard)
     @HttpCode(200)
+    @ApiTags('auth')
     @Post('refresh')
     async refresh(@Request() req):Promise<CredentialsResponseDTO>{
         try{
