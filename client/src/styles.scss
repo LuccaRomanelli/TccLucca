@@ -1,0 +1,88 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+/* For use in src/lib/core/theming/_palette.scss */
+$md-tcc: (
+    50 : #fbeded,
+    100 : #f6d1d1,
+    200 : #f0b3b3,
+    300 : #e99494,
+    400 : #e57d7d,
+    500 : #e06666,
+    600 : #dc5e5e,
+    700 : #d85353,
+    800 : #d34949,
+    900 : #cb3838,
+    A100 : #ffffff,
+    A200 : #ffe2e2,
+    A400 : #ffafaf,
+    A700 : #ff9696,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$client-primary: mat-palette($md-tcc);
+$client-accent: mat-palette($md-tcc, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$client-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$client-theme: mat-dark-theme($client-primary, $client-accent, $client-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($client-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-snack-bar-container .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    padding: 0;
+  }
+  
+  .mat-snack-bar-container.danger {
+    color: white;
+    background-color: #b34045;
+  }
+  
+  .mat-snack-bar-container.success {
+    color: white;
+    background-color: #2d884d;
+  }
+  
+  .transparent .mat-dialog-container {
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0);
+  }
