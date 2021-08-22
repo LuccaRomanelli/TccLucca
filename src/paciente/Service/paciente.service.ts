@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { PacienteEntity } from '../Entity';
 import { validaCpf } from '../../utils'
-import { CreatePacienteDTO, UpdatePacienteDTO, PacienteIdPath } from '../Models';
+import { CreatePacienteDTO, UpdatePacienteDTO, PacienteIdPath, NomePacientePath } from '../Models';
 
 @Injectable()
 export class PacienteService {
@@ -38,6 +38,24 @@ export class PacienteService {
     async getAllPacientes():Promise<PacienteEntity[]>{
         try {
             const Response = await this.pacientesRepository.find()
+            return Response
+        } catch (err){
+            if (err instanceof HttpException) {
+                throw err
+            }                 
+            throw new HttpException(err.message, 400)
+        }
+    }
+    async getPacienteByNome(nomePacienteId:NomePacientePath):Promise<PacienteEntity>{
+        try {
+            const Response = await this.pacientesRepository.findOne({
+                where: {
+                    nome: nomePacienteId.nome,
+                }
+            })
+            if(!Response){
+                throw new HttpException('Nome paciente não encontrado',404)
+            }
             return Response
         } catch (err){
             if (err instanceof HttpException) {

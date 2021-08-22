@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { PacienteEntity } from '../../paciente/Entity';
 import { PulseiraEntity } from '../../pulseira/Entity';
 
@@ -9,12 +9,12 @@ export class ConexaoEntity {
   @ApiProperty()
   id?: number;
 
-  @OneToOne(() => PulseiraEntity)
+  @ManyToOne(() => PulseiraEntity)
   @JoinColumn()
   @ApiProperty()
   pulseiraFk: number;
 
-  @OneToOne(() => PacienteEntity)
+  @ManyToOne(() => PacienteEntity)
   @JoinColumn()
   @ApiProperty()
   pacienteFk: number;

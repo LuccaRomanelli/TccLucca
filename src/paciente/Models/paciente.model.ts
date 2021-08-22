@@ -1,6 +1,6 @@
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumberString, Validate } from 'class-validator';
+import { IsNotEmpty, IsNumberString, IsString, Validate } from 'class-validator';
 import { ValidarCpf } from '../../utils/custom-validators';
 
 
@@ -86,4 +86,10 @@ export class PacienteIdPath {
     @IsNumberString()
     @ApiProperty()
     id: number;
+}
+
+export class NomePacientePath {
+    @IsString()
+    @ApiProperty()
+    nome: string;
 }

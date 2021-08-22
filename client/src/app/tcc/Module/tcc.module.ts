@@ -7,6 +7,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
 import { CookieService } from 'ngx-cookie-service';
 import { MaterialModule } from '../../material';
+import { PacienteComponent, PulseiraComponent, ConexaoComponent, DadosComponent } from '../Components';
 import { 
   AppContainerComponent,
   LoginComponent,
@@ -31,7 +32,11 @@ import {
     AppContainerComponent,
     LoginComponent,
     AlertComponent,
-    ProgressSpinnerDialogComponent
+    ProgressSpinnerDialogComponent,
+    PacienteComponent,
+    PulseiraComponent,
+    ConexaoComponent,
+    DadosComponent
   ],
   imports: [
     CommonModule,
