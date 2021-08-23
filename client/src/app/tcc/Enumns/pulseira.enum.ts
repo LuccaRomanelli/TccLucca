@@ -4,3 +4,10 @@ export enum PulseiraStatusEnum{
     MAINTENANCE = 'manutencao',
     SANITATION = 'limpeza'
 }
+
+export enum PulseiraStatusLabelsEnum{
+    AVAILABLE = 'Disponível',
+    IN_USE = 'Em uso',
+    MAINTENANCE = 'Manutenção',
+    SANITATION = 'Limpeza'
+}

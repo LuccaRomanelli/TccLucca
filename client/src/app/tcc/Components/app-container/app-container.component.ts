@@ -57,7 +57,6 @@ export class AppContainerComponent implements OnInit {
       if(evt instanceof NavigationEnd){
         this.activeRoute = evt.url;
       }
-      console.log(this.sidenav.opened)
     });
     this.authService.refreshToken();
     this.plataformService.getPlataform().subscribe(currentPlataform=>{

@@ -96,4 +96,8 @@ export class PulseiraListComponent implements OnInit,AfterViewInit {
   createPulseira(){
     this.router.navigate(['/home/pulseira/nova']);
   }
+
+  editPulseira(id:string){
+    this.router.navigate([`/home/pulseira/editar/${id}`]);
+  }
 }

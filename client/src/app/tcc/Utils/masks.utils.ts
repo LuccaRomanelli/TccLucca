@@ -1,0 +1,1 @@
+export const NodeMask = 'AA-AA-AA-AA-AA-AA-AA'

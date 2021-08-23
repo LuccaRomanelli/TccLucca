@@ -1,1 +1,48 @@
-<p>pulseira-form works!</p>
+<div class="container">
+    <form [formGroup]='pulseiraForm' novalidate>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{title}} Pulseira</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                  <mat-form-field>
+                    <input matInput placeholder="Node" formControlName="node" [mask]="NodeMask" [dropSpecialCharacters]="false">
+                    <mat-error *ngIf="pulseiraForm.controls.node.hasError('required')">
+                        Node é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="!pulseiraForm.controls.node.hasError('required') && pulseiraForm.controls.node.hasError('minlength')">
+                        Node invalido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                    <mat-form-field >
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status">
+                          <mat-option *ngFor="let status of statusOptions" [value]="status.key" >{{status.label}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="pulseiraForm.controls.status.hasError('required')">
+                            Status é obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                </div>
+              </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="save()" [disabled]="disableButton">
+                    Salvar 
+                </button>
+                <button mat-raised-button color="accent" (click)="cancel()" [disabled]="disableButton">
+                    Cancelar 
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

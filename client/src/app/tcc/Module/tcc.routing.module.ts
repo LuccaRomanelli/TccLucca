@@ -35,6 +35,10 @@ const routes: Routes = [
         component: PulseiraFormComponent,
       },
       {
+        path: 'pulseira/editar/:id',
+        component: PulseiraFormComponent,
+      },
+      {
         path: 'conexao',
         component: ConexaoComponent
       },

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TccRoutingModule } from './tcc.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexModule } from '@angular/flex-layout';
+import { NgxMaskModule } from 'ngx-mask';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
@@ -56,7 +58,9 @@ import {
     HttpClientModule,
     FormsModule, 
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    FlexModule,
+    NgxMaskModule.forRoot()
   ],
   providers:[
     AuthService,
