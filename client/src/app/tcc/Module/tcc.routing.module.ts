@@ -5,9 +5,11 @@ import {
   AppContainerComponent,
   LoginComponent,
   PacienteComponent,
-  PulseiraComponent,
+  PulseiraListComponent,
+  PulseiraFormComponent,
   ConexaoComponent,
-  DadosComponent
+  DadosComponent,
+  UserComponent
 } from '../Components'
 import { 
   LoginRouteGuard,
@@ -26,7 +28,11 @@ const routes: Routes = [
       },
       {
         path: 'pulseira',
-        component: PulseiraComponent
+        component: PulseiraListComponent,
+      },
+      {
+        path: 'pulseira/nova',
+        component: PulseiraFormComponent,
       },
       {
         path: 'conexao',
@@ -35,6 +41,10 @@ const routes: Routes = [
       {
         path: 'dados',
         component: DadosComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent
       },
       {
         path: '**',

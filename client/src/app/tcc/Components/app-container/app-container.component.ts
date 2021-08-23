@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../Services';
-import { SideNavMenu } from '../../Models';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthService, PlataformService } from '../../Services';
+import { SideNavMenu, Plataform} from '../../Models';
 import { NavigationEnd, Router } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-app-container',
@@ -9,12 +10,15 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app-container.component.scss']
 })
 export class AppContainerComponent implements OnInit {
+  
+  Plataform = Plataform;
+  currentPlataform: string;
 
   menuItens:SideNavMenu[] = [
     {
       label: "Paciente",
       route: "/home/paciente",
-      icon:"person_add",
+      icon:"people",
     },
     {
       label: "Pulseira",
@@ -31,11 +35,20 @@ export class AppContainerComponent implements OnInit {
       route: "/home/dados",
       icon:"equalizer",
     },
+    {
+      label: "Usuários",
+      route: "/home/user",
+      icon:"badge",
+    },
   ];
   activeRoute:string; 
+
+  @ViewChild(MatSidenav,{static: false}) sidenav: MatSidenav;
+
   constructor(
     private readonly authService:AuthService,
-    private readonly router:Router
+    private readonly router:Router,
+    private readonly plataformService:PlataformService
   ) { }
 
   ngOnInit() {
@@ -44,8 +57,30 @@ export class AppContainerComponent implements OnInit {
       if(evt instanceof NavigationEnd){
         this.activeRoute = evt.url;
       }
+      console.log(this.sidenav.opened)
     });
     this.authService.refreshToken();
+    this.plataformService.getPlataform().subscribe(currentPlataform=>{
+      this.currentPlataform = currentPlataform;
+      this.toggleSidenav(false)
+    });
+  }
+
+  toggleSidenav(status?: boolean){
+    if(this.sidenav){
+      if(status !== undefined){
+        if(status){
+          this.sidenav.open();
+        }
+        else{
+          this.sidenav.close();
+        }
+      }
+      else{
+        this.sidenav.toggle();
+  
+      }
+    }
   }
 
   logout(){

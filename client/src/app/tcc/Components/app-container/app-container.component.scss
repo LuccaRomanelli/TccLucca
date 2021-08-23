@@ -2,20 +2,15 @@
 mat-toolbar{
     background-color: $primary-color;
 }
-mat-drawer{
-    background-color: white;
-}
+
 .menuIten{
   display: inline-flex;
   justify-content: left;
   align-items: center;
   cursor: pointer;
-  padding: 15px;
-  width: calc(100% - 30px);
-  transition: 200ms;
-  span{
-    color: black;
-  }
+  padding: 30px;
+  width: calc(100% - 60px);
+  transition: $time_transition;
   mat-icon{
     margin-right: 5px;
     vertical-align: middle;
@@ -38,4 +33,11 @@ mat-drawer{
   mat-icon{
     color: $primary-color;
   }
+}
+
+.content{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

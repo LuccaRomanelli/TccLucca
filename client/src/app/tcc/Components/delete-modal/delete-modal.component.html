@@ -1,0 +1,14 @@
+<div mat-dialog-header>
+    <mat-icon>warning</mat-icon>
+    <span>Deletar</span>
+</div>
+<div mat-dialog-content>
+    <span>Tem certeza que deseja <strong>DELETAR PERMANENTEMENTE</strong></span>
+    <span *ngIf="data.femaleGender"> a </span>
+    <span *ngIf="!data.femaleGender"> o </span>
+    <span>{{data.entity}} de {{data.property}} <strong>{{data.value}}</strong></span>
+</div>
+<div mat-dialog-action>
+    <button mat-stroked-button color="primary" (click)="closeModal(true)">Sim</button>
+    <button mat-stroked-button color="accent" (click)="closeModal(false)">Cancelar</button>
+</div>

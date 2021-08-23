@@ -1,5 +1,5 @@
 <mat-sidenav-container fullscreen>
-    <mat-sidenav #sidenav mode="side">
+    <mat-sidenav [mode]="currentPlataform !== Plataform.Mobile ? 'side' : 'over'">
         <mat-toolbar>
         </mat-toolbar>
         <div *ngFor="let menu of menuItens">
@@ -19,11 +19,13 @@
   
     <mat-sidenav-content>
         <mat-toolbar>
-            <button mat-icon-button (click)="sidenav.toggle()">
+            <button mat-icon-button (click)="toggleSidenav()">
               <mat-icon>menu</mat-icon>
             </button>
             <span>Tcc do Lucca</span>
         </mat-toolbar>
-        <router-outlet></router-outlet>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

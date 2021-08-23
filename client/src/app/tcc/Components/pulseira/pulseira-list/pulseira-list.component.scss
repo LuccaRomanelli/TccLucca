@@ -1,0 +1,135 @@
+@import '../../../../../assets/SCSS/variables';
+
+.container{
+    display: flex;
+    flex-direction:column;
+    width: 96%;
+    margin: auto;
+
+    mat-card{
+        margin-top: 2%;
+
+        mat-card-content{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+    
+            .available{
+                color: green;
+            }
+    
+            .in_use{
+                color: red
+            }
+    
+            .maintenance{
+                color: aqua;
+            }
+    
+            .sanitation{
+                color: yellow;
+            }
+
+            .actions{
+                display: inline-flex;
+                width: 100%;
+                align-items: center;
+                margin-top: 30px;
+            
+                mat-form-field{
+                    width: 25%;
+                    margin-right: 15px;
+                }
+
+                button{
+                    margin-left: auto;
+                    vertical-align: middle;
+                }
+
+                .mobile-button{
+                    position: fixed;
+                    right: 10%;
+                    bottom: 5%;
+                    z-index: 99;
+                }
+            }
+    
+            table{
+                width: 100%;
+
+                th.mat-header-cell{
+                    text-align: left !important;
+                }
+
+                td.mat-cell{
+                    text-align: left !important;
+
+                    mat-icon{
+                        transition: $time_transition;
+                    }
+        
+                    mat-icon:hover{
+                        color: $primary_color;
+                    }
+                }
+
+                td.mat-cell:last-child{
+                    text-align: right !important;
+                }
+            }
+    
+            .mobile-table{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                mat-nav-list{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    .mobile-table-container{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+    
+                        .mobile-card{
+                            display: inline-flex;
+                            margin: auto;
+                            width: 90%;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            
+                            .mobile-card-content{
+                                display: flex;
+                                flex-direction: column;
+                                margin: auto;
+                                max-width: 75%;
+                
+                                span{
+                                    margin-top: 5px;
+                                }
+                            }
+                
+                            .mobile-card-actions{
+                                display: flex;
+                                flex-direction: column;
+                                margin: auto;
+                            }
+                        }
+                    }
+
+                    .mobile-table-container:first-child{
+                        border-top: 1px solid white;
+                        border-bottom: 1px solid white;                    
+                    }
+
+                    .mobile-table-container:not(:first-child)
+                    {
+                        border-bottom: 1px solid white;                   
+                    }
+                }
+            }
+        }
+    }
+}

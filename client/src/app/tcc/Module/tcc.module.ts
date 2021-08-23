@@ -7,7 +7,15 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
 import { CookieService } from 'ngx-cookie-service';
 import { MaterialModule } from '../../material';
-import { PacienteComponent, PulseiraComponent, ConexaoComponent, DadosComponent } from '../Components';
+import {
+  PacienteComponent,
+  PulseiraListComponent,
+  PulseiraFormComponent,
+  ConexaoComponent,
+  DadosComponent,
+  UserComponent,
+  DeleteModalComponent
+} from '../Components';
 import { 
   AppContainerComponent,
   LoginComponent,
@@ -18,7 +26,8 @@ import{
   AuthService,
   PlataformService,
   FeedbackService,
-  UserService
+  UserService,
+  PulseiraService
 } from '../Services'
 import {
   LoginRouteGuard,
@@ -34,9 +43,12 @@ import {
     AlertComponent,
     ProgressSpinnerDialogComponent,
     PacienteComponent,
-    PulseiraComponent,
+    PulseiraListComponent,
+    PulseiraFormComponent,
     ConexaoComponent,
-    DadosComponent
+    DadosComponent,
+    UserComponent,
+    DeleteModalComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +65,7 @@ import {
     UserService,
     CookieService,
     LoginRouteGuard,
+    PulseiraService,
     UserLoggedRouteGuard,
     {
       provide: HTTP_INTERCEPTORS,
@@ -71,7 +84,8 @@ import {
   ],
   entryComponents:[
     AlertComponent,
-    ProgressSpinnerDialogComponent
+    ProgressSpinnerDialogComponent,
+    DeleteModalComponent
   ]
 })
 export class TccModule { }
