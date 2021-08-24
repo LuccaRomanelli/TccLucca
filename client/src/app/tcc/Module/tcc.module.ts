@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
 import { CookieService } from 'ngx-cookie-service';
+import { SimplebarAngularModule } from 'simplebar-angular';
 import { MaterialModule } from '../../material';
 import {
   PacienteComponent,
@@ -60,6 +61,7 @@ import {
     ReactiveFormsModule,
     MaterialModule,
     FlexModule,
+    SimplebarAngularModule,
     NgxMaskModule.forRoot()
   ],
   providers:[

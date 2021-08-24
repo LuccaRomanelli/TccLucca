@@ -88,5 +88,8 @@ export class AppContainerComponent implements OnInit {
   
   redirect(path:string){
     this.router.navigate([path]);
+    if(this.currentPlataform === Plataform.Mobile){
+      this.toggleSidenav(false);
+    }
   }
 }
