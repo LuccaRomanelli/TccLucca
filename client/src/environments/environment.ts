@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://tccprod-env.eba-tmqq3bds.us-east-2.elasticbeanstalk.com/api'
+  API_URL: 'http://localhost:3000/api'
 };
 
 /*
