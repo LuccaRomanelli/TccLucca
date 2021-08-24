@@ -13,8 +13,9 @@ build_staging:
   only:
     - develop
   script:
-    - npm install
-    - npm run build
+    - npm install:back
+    - npm install:client
+    - npm run build:all:dev
   artifacts:
     paths:
       - dist/
@@ -26,8 +27,9 @@ build_prod:
   only:
     - main
   script:
-    - npm install
-    - npm run build
+    - npm install:back
+    - npm install:client
+    - npm run build:all:prod
   artifacts:
     paths:
       - dist/

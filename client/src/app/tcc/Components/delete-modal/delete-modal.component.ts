@@ -12,7 +12,7 @@ export class DeleteModalComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteModalComponent>,
     @Inject(MAT_DIALOG_DATA)
-    private readonly data: DeleteModalDTO,
+    public data: DeleteModalDTO,
   ) { }
 
   closeModal(result:boolean){

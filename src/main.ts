@@ -21,7 +21,8 @@ async function bootstrap() {
     .addTag('auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/swagger', app, document);
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT || 3000);
   
 }
