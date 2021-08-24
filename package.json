@@ -8,10 +8,10 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "install:back": "npm install",
-    "install:client": "cd client && npm install & cd..",
+    "install:client": "cd client && npm install & cd ..",
     "build:back": "nest build",
-    "build:all:dev": "npm run build:back && cd client && npm run build:client:dev && cd..",
-    "build:all:prod": "npm run build:back && cd client && npm run build:client:prod && cd..",
+    "build:all:dev": "npm run build:back && cd client && npm run build:client:dev && cd ..",
+    "build:all:prod": "npm run build:back && cd client && npm run build:client:prod && cd ..",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
