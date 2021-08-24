@@ -160,8 +160,11 @@ export class DadosComponent implements OnInit,AfterViewInit {
     const Year = NewDate.getFullYear();
     const Month = NewDate.getMonth() < 9 ? `0${NewDate.getMonth() + 1}` : NewDate.getMonth() + 1;
     const Day = NewDate.getDate() < 10 ? `0${NewDate.getDate()}` : NewDate.getDate();
+    const Hour = NewDate.getHours();
+    const Minute = NewDate.getMinutes();
+    const Second = NewDate.getSeconds();
 
-    return `${Day}/${Month}/${Year}`
+    return `${Day}/${Month}/${Year} ${Hour}:${Minute}:${Second}`
   }
   
   getData(){
