@@ -32,7 +32,10 @@ import{
   PlataformService,
   FeedbackService,
   UserService,
-  PulseiraService
+  PulseiraService,
+  DataService,
+  PacienteService,
+  ConexaoService
 } from '../Services'
 import {
   LoginRouteGuard,
@@ -74,8 +77,11 @@ import {
     FeedbackService,
     UserService,
     CookieService,
-    LoginRouteGuard,
+    DataService,
+    PacienteService,
+    ConexaoService,
     PulseiraService,
+    LoginRouteGuard,
     UserLoggedRouteGuard,
     {
       provide: HTTP_INTERCEPTORS,

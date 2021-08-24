@@ -14,47 +14,18 @@
             flex-direction: column;
             width: 100%;
     
-            .available{
-                color: #3ffc26;
-            }
-    
-            .in_use{
-                color: #fc3838
-            }
-    
-            .maintenance{
-                color: #046bcc;
-            }
-    
-            .sanitation{
-                color: #f2d516;
-            }
-
-            .actions{
-                display: inline-flex;
+            mat-form-field{
                 width: 100%;
-                align-items: center;
-                margin-top: 30px;
-                margin-bottom: 30px;
 
-                mat-form-field{
-                    width: 25%;
-                    margin-right: 15px;
+                mat-icon{
+                    transition: $time_transition;
                 }
 
-                button{
-                    margin-left: auto;
-                    vertical-align: middle;
+                mat-icon:hover{
+                    color: $primary-color;
                 }
-
-                .mobile-button{
-                    position: fixed;
-                    right: 5%;
-                    bottom: 5%;
-                    z-index: 99;
-                }
-            }
-    
+            }  
+            
             table{
                 width: 100%;
 
@@ -74,9 +45,6 @@
                     }
                 }
 
-                td.mat-cell:last-child{
-                    text-align: right !important;
-                }
             }
     
             .mobile-table{

@@ -15,8 +15,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
+  imports: [
+    MatDatepickerModule,
+    MatNativeDateModule 
+  ],
+  providers: [  
+    MatDatepickerModule,
+    MatNativeDateModule  
+  ],
   exports: [
     MatButtonModule,
     MatCardModule,
@@ -33,7 +44,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatTableModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule { }
