@@ -11,12 +11,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { MaterialModule } from '../../material';
 import {
-  PacienteComponent,
+  PacienteListComponent,
+  PacienteFormComponent,
   PulseiraListComponent,
   PulseiraFormComponent,
   ConexaoComponent,
   DadosComponent,
-  UserComponent,
+  UserListComponent,
+  UserFormComponent,
   DeleteModalComponent
 } from '../Components';
 import { 
@@ -45,12 +47,14 @@ import {
     LoginComponent,
     AlertComponent,
     ProgressSpinnerDialogComponent,
-    PacienteComponent,
+    PacienteListComponent,
+    PacienteFormComponent,
     PulseiraListComponent,
     PulseiraFormComponent,
     ConexaoComponent,
     DadosComponent,
-    UserComponent,
+    UserListComponent,
+    UserFormComponent,
     DeleteModalComponent
   ],
   imports: [

@@ -5,6 +5,6 @@ export * from './progress-spinner-dialog/progress-spinner-dialog.component';
 export * from './conexao/conexao.component';
 export * from './dados/dados.component';
 export * from './pulseira';
-export * from './paciente/paciente.component';
-export * from './user/user.component';
+export * from './paciente';
+export * from './user';
 export * from './delete-modal/delete-modal.component'
