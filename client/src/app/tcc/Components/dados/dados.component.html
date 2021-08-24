@@ -1,63 +1,102 @@
 <div class="container">
+  <form [formGroup]='dataForm' novalidate>
     <mat-card>
-        <mat-card-header>
-            <span>Gerenciar Pulseiras</span>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="actions">
-            <mat-form-field >
-              <mat-label>Campo</mat-label>
-              <mat-select [value]="filterOptions[0].key" (selectionChange)="inputFilter.value=''; applyFilter(selectFilter.value, inputFilter.value)" #selectFilter>
-                <mat-option *ngFor="let filter of filterOptions" [value]="filter.key">{{filter.label}}</mat-option>
-              </mat-select>
+      <mat-card-header>
+          <span>Visualizar Data</span>
+      </mat-card-header>
+      <mat-card-content>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+        fxLayoutAlign="flex-start">
+
+          <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+            <mat-form-field>
+              <input matInput placeholder="Paciente" [matAutocomplete]="pacientes" formControlName="paciente" (keyup)="applyFilterPaciente($event.target.value)">
+              <mat-error *ngIf="dataForm.controls.paciente.hasError('required')">
+                Informe um paciente
+              </mat-error>
+              <button mat-icon-button matSuffix>
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+              <button mat-icon-button matSuffix (click)="getConexion(true)">
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-autocomplete #pacientes="matAutocomplete" (optionSelected)="getConexion(false)" [displayWith]="displayFn">
+                <mat-option *ngFor="let paciente of pacientesDataSource.filteredData" [value]="paciente">
+                  {{paciente.nome}}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
+          </div>
+          <div *ngIf="showAditionalPacienteInfo" fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
             <mat-form-field >
-                <mat-label>Valor</mat-label>
-                <input matInput (keyup)="applyFilter(selectFilter.value, inputFilter.value)" #inputFilter>
+              <input matInput [matDatepicker]="initialDate" [min]="minDate" [max]="maxDate" placeholder="Data inicial" formControlName="dataInicio">
+              <mat-datepicker-toggle matSuffix [for]="initialDate"></mat-datepicker-toggle>
+              <mat-datepicker #initialDate [touchUi]="currentPlataform === Plataform.Mobile" ></mat-datepicker>
+              <mat-error *ngIf="dataForm.controls.dataInicio.hasError('required')">
+                Informe uma data de inicio
+              </mat-error>
+              <mat-error *ngIf="!dataForm.controls.dataInicio.hasError('required') && dataForm.controls.dataInicio.invalid">
+                Data invalida
+              </mat-error>
             </mat-form-field>
-    
-            <button *ngIf="currentPlataform !== Plataform.Mobile" mat-raised-button color="primary" (click)="createPulseira()">
-              <mat-icon>add</mat-icon>
-              <span>Adicionar Pulseira</span>
-            </button>
-    
-            <button *ngIf="currentPlataform === Plataform.Mobile" mat-fab class="mobile-button" color="primary" (click)="createPulseira()">
-              <mat-icon>add</mat-icon>
+          </div>
+          <div *ngIf="showAditionalPacienteInfo" fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+            <mat-form-field >
+              <input matInput [matDatepicker]="finalDate" [min]="dataForm.controls.dataInicio.value" [max]="maxDate" placeholder="Data final" formControlName="dataFim">
+              <mat-datepicker-toggle matSuffix [for]="finalDate"></mat-datepicker-toggle>
+              <mat-datepicker #finalDate [touchUi]="currentPlataform === Plataform.Mobile"></mat-datepicker>
+              <mat-error *ngIf="dataForm.controls.dataFim.invalid">
+                Data invalida
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <button *ngIf="showAditionalPacienteInfo" mat-raised-button color="primary" (click)="getData()">
+              <mat-icon>search</mat-icon>
+              <span>Ver dados</span>
             </button>
           </div>
+        </div>
+
+        <div *ngIf="showDataTable">
+          <mat-form-field >
+            <mat-label>Valor</mat-label>
+            <input matInput (keyup)="applyFilter(selectFilter.value, inputFilter.value)" #inputFilter>
+          </mat-form-field>
+  
           <div class="mat-elevation-z8" *ngIf="currentPlataform !== Plataform.Mobile">
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="tableDataSource" matSort>
         
-              <!-- Node Column -->
-              <ng-container matColumnDef="node">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Node </th>
-                <td mat-cell *matCellDef="let row"> {{row.node}} </td>
+              <!-- Time UTC Column -->
+              <ng-container matColumnDef="time_utc">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Time UTC </th>
+                <td mat-cell *matCellDef="let row"> {{formatDate(row.time_utc)}} </td>
               </ng-container>
     
-              <!-- Status Column -->
-              <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <span [ngClass]="{'available': row.status === PulseiraStatusEnum.AVAILABLE, 'in_use' : row.status === PulseiraStatusEnum.IN_USE, 'maintenance' : row.status === PulseiraStatusEnum.MAINTENANCE, 'sanitation' : row.status === PulseiraStatusEnum.SANITATION }">
-                    {{row.status}}
-                  </span> 
-                </td>
+              <!-- Heart Rate Column -->
+              <ng-container matColumnDef="heart_Rate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Heart Rate </th>
+                <td mat-cell *matCellDef="let row"> {{row.heart_Rate}} </td>
               </ng-container>
-    
-              <!-- Action Column -->
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                <td mat-cell *matCellDef="let row">  
-                  <button mat-icon-button matTooltip="Editar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="editPulseira(row.id)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deletePulseira(row.id)">
-                    <mat-icon>delete_forever</mat-icon>
-                  </button>
-                </td>
-    
-              </ng-container>                  
-                        
+  
+              <!-- Temperature Column -->
+              <ng-container matColumnDef="temperature_degC">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+                <td mat-cell *matCellDef="let row"> {{row.temperature_degC}} </td>
+              </ng-container>
+  
+              <!-- Oximetry Column -->
+              <ng-container matColumnDef="oximetry">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Oximetry </th>
+                <td mat-cell *matCellDef="let row"> {{row.oximetry}} </td>
+              </ng-container>
+  
+              <!-- Blood Pressure Column -->
+              <ng-container matColumnDef="blood_pressure">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Blood Pressure </th>
+                <td mat-cell *matCellDef="let row"> {{row.blood_pressure}} </td>
+              </ng-container>
+          
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           
@@ -67,30 +106,37 @@
           </div>
           <div *ngIf="currentPlataform === Plataform.Mobile" class="mobile-table">
             <mat-nav-list>
-              <div *ngFor="let pulseira of dataSource.filteredData" class="mobile-table-container">
+              <div *ngFor="let data of tableDataSource.filteredData" class="mobile-table-container">
                 <div class="mobile-card">
                   <div class="mobile-card-content">
-                    <h3 matLine><strong>{{pulseira.node}}</strong></h3>
+                    <h3 matLine><strong>{{data.node}}</strong></h3>
                     <span matLine >
-                      <strong>Status:&nbsp;</strong>
-                      <span [ngClass]="{'available': pulseira.status === PulseiraStatusEnum.AVAILABLE, 'in_use' : pulseira.status === PulseiraStatusEnum.IN_USE, 'maintenance' : pulseira.status === PulseiraStatusEnum.MAINTENANCE, 'sanitation' : pulseira.status === PulseiraStatusEnum.SANITATION }">{{pulseira.status}}</span>
+                      <strong>Time UTC:&nbsp;</strong>
+                      <span>{{formatDate(data.time_utc)}}</span>
                     </span>
-                  </div>
-                  <div class="mobile-card-actions">
-                    <button mat-icon-button matTooltip="Editar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="editPulseira(pulseira.id)">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deletePulseira(pulseira.id)">
-                      <mat-icon>delete_forever</mat-icon>
-                    </button>
+                    <span matLine >
+                      <strong>Heart Rate:&nbsp;</strong>
+                      <span>{{data.heart_Rate}}</span>
+                    </span>
+                    <span matLine >
+                      <strong>Temperature:&nbsp;</strong>
+                      <span>{{data.temperature_degC}}</span>
+                    </span>
+                    <span matLine >
+                      <strong>Oximetry:&nbsp;</strong>
+                      <span>{{data.oximetry}}</span>
+                    </span>
+                    <span matLine >
+                      <strong>Blood Pressure:&nbsp;</strong>
+                      <span>{{data.blood_pressure}}</span>
+                    </span>
                   </div>
                 </div>
               </div>
             </mat-nav-list>
           </div>
-        </mat-card-content>
-        <mat-card-actions>
-            
-        </mat-card-actions>
+        </div>
+      </mat-card-content>
     </mat-card>
-    </div>
+  </form>
+</div>

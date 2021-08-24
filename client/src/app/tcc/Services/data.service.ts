@@ -20,25 +20,12 @@ export class DataService {
   ) { }
 
 
-  async cratePulseira(newPulseira:DataDTO):Promise<DataDTO>{
-    const CreateResponse = await this.http.post<DataDTO>(`${API_URL}/pulseira`,newPulseira).toPromise().catch(err=>{
-      this.feedbackservice.showAlert(err.error.message,'danger');
-    });
-
-    if(CreateResponse){
-      return CreateResponse;
-    }
-  }
-
-
-  async updatePulseira(id:number, pulseira:DataDTO) {
-    const EditResponse = await this.http.put(`${API_URL}/pulseira/${id}`,pulseira).toPromise().catch(err=>{
-      this.feedbackservice.showAlert(err.error.message,'danger');
-    });
-
-    if(EditResponse){
-      return EditResponse;
-    }
+  async getData(pulseiraFk: string, startDate: number, endDate: number){
+    return this.http.get<DataDTO[]>(`${API_URL}/data/${pulseiraFk}?dataInicio=${startDate}&dataFim=${endDate}`).subscribe(data =>{
+      this.setDadosList(data);
+    }, err => {
+      this.feedbackservice.showAlert(err.error.message, 'danger')
+    })
   }
 
   private setDadosList (newDadosList:DataDTO[]) {
