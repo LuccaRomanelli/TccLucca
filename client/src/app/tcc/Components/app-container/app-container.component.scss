@@ -1,0 +1,43 @@
+@import '../../../../assets/SCSS/variables';
+mat-toolbar{
+    background-color: $primary-color;
+}
+
+.menuIten{
+  display: inline-flex;
+  justify-content: left;
+  align-items: center;
+  cursor: pointer;
+  padding: 30px;
+  width: calc(100% - 60px);
+  transition: $time_transition;
+  mat-icon{
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+}
+.menuIten:hover{
+  background-color: rgba($color: #000000, $alpha: 0.2);
+  span{
+    color: $primary-color;
+  }
+  mat-icon{
+    color: $primary-color;
+  }
+}
+
+.active{
+  span{
+    color: $primary-color;
+  }
+  mat-icon{
+    color: $primary-color;
+  }
+}
+
+.content{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

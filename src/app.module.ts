@@ -9,9 +9,17 @@ import 'dotenv/config';
 import { PulseiraEntity, PulseiraModule } from './pulseira';
 import { PacienteEntity, PacienteModule } from './paciente';
 import { ConexaoEntity, ConexaoModule } from './conexao';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [AuthModule, UserModule, DataModule, PulseiraModule, PacienteModule, ConexaoModule,
+  imports: [
+    AuthModule, 
+    UserModule,
+    DataModule,
+    PulseiraModule,
+    PacienteModule,
+    ConexaoModule,
     TypeOrmModule.forRoot({
       type: 'mariadb',
       host: process.env.DB_HOST,
@@ -21,6 +29,9 @@ import { ConexaoEntity, ConexaoModule } from './conexao';
       database: process.env.DB_NAME,
       entities: [UserEntity, DataEntity, PulseiraEntity, PacienteEntity, ConexaoEntity],
       synchronize: JSON.parse(process.env.DB_ENABLE_MIGRATION),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
     }),
   ],
   controllers: [AppController],

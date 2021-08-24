@@ -1,0 +1,31 @@
+<mat-sidenav-container fullscreen>
+    <mat-sidenav [mode]="currentPlataform !== Plataform.Mobile ? 'side' : 'over'">
+        <mat-toolbar>
+        </mat-toolbar>
+        <div *ngFor="let menu of menuItens">
+            <div class="menuIten" [ngClass]="{'active': activeRoute === menu.route}" (click)="redirect(menu.route)">
+                <mat-icon>{{menu.icon}}</mat-icon>
+                <span>{{menu.label}}</span>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+            <div class="menuIten" (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </div>
+        </div>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button (click)="toggleSidenav()">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span>Tcc do Lucca</span>
+        </mat-toolbar>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -10,7 +10,7 @@ import {
     UseGuards} from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { PacienteService } from '../Service';
-import { CreatePacienteDTO, UpdatePacienteDTO, PacienteIdPath } from '../Models';
+import { CreatePacienteDTO, UpdatePacienteDTO, PacienteIdPath, NomePacientePath } from '../Models';
 import { PacienteEntity } from '../Entity';
 import { JwtWebAuthGuard } from 'src/auth/Guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -67,7 +67,24 @@ export class PacienteController {
     @ApiTags('paciente')
     async getAllPaciente():Promise<PacienteEntity[]>{
         try{
+            console.log('Entrou aqui');
             const Response= await this.pacienteService.getAllPacientes();
+            return Response
+        } catch (err) {
+            if (err instanceof HttpException) {
+                throw err
+            }                 
+            throw new HttpException(err.message, 400)
+        }
+    }
+
+    @UseGuards(JwtWebAuthGuard)
+    @Get('/nome')
+    @ApiTags('paciente')
+    async getLastConexaoByPaciente( @Body() nomePaciente:NomePacientePath):Promise<PacienteEntity>{
+        try{
+            console.log('Entrou aqui');
+            const Response= await this.pacienteService.getPacienteByNome(nomePaciente);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {
