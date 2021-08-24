@@ -27,8 +27,8 @@ build_prod:
   only:
     - main
   script:
-    - npm install:back
-    - npm install:client
+    - npm run install:back
+    - npm run install:client
     - npm run build:all:prod
   artifacts:
     paths:
