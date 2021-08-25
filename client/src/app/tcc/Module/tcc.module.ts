@@ -8,14 +8,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
 import { CookieService } from 'ngx-cookie-service';
+import { SimplebarAngularModule } from 'simplebar-angular';
 import { MaterialModule } from '../../material';
 import {
-  PacienteComponent,
+  PacienteListComponent,
+  PacienteFormComponent,
   PulseiraListComponent,
   PulseiraFormComponent,
   ConexaoComponent,
   DadosComponent,
-  UserComponent,
+  UserListComponent,
+  UserFormComponent,
   DeleteModalComponent
 } from '../Components';
 import { 
@@ -29,7 +32,10 @@ import{
   PlataformService,
   FeedbackService,
   UserService,
-  PulseiraService
+  PulseiraService,
+  DataService,
+  PacienteService,
+  ConexaoService
 } from '../Services'
 import {
   LoginRouteGuard,
@@ -44,12 +50,14 @@ import {
     LoginComponent,
     AlertComponent,
     ProgressSpinnerDialogComponent,
-    PacienteComponent,
+    PacienteListComponent,
+    PacienteFormComponent,
     PulseiraListComponent,
     PulseiraFormComponent,
     ConexaoComponent,
     DadosComponent,
-    UserComponent,
+    UserListComponent,
+    UserFormComponent,
     DeleteModalComponent
   ],
   imports: [
@@ -60,6 +68,7 @@ import {
     ReactiveFormsModule,
     MaterialModule,
     FlexModule,
+    SimplebarAngularModule,
     NgxMaskModule.forRoot()
   ],
   providers:[
@@ -68,8 +77,11 @@ import {
     FeedbackService,
     UserService,
     CookieService,
-    LoginRouteGuard,
+    DataService,
+    PacienteService,
+    ConexaoService,
     PulseiraService,
+    LoginRouteGuard,
     UserLoggedRouteGuard,
     {
       provide: HTTP_INTERCEPTORS,

@@ -5,7 +5,9 @@ import {
     Body,
     HttpException, 
     Param,
-    UseGuards} from '@nestjs/common';
+    UseGuards,
+    Query
+} from '@nestjs/common';
 import { DataService } from '../Service';
 import { CreateDataDTO, DataIdPath } from '../Models';
 import { DataEntity } from '../Entity';
@@ -53,10 +55,17 @@ export class DataController {
 
     @UseGuards(JwtWebAuthGuard)
     @ApiTags('data')
-    @Get(':id')
-    async getDataById( @Param() dataId:DataIdPath):Promise<DataEntity>{
+    @Get(':node')
+    async getDataById( @Param() dataId:DataIdPath, @Query('dataInicio') dataInicio:number, @Query('dataFim') dataFim:number  ):Promise<DataEntity[]>{
         try{
-            const Response= await this.dataService.getDataById(dataId);
+            console.log(dataInicio)
+            if(!dataInicio || typeof(dataInicio) !== 'number'){
+                dataInicio = new Date().getTime();
+            }
+            if(!dataFim || typeof(dataFim) !== 'number'){
+                dataFim = new Date().getTime();
+            }
+            const Response = await this.dataService.getDataById(dataId,dataInicio,dataFim);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {

@@ -89,3 +89,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .tool-tip {
     background: #e57d7d;
   }
+  .simplebar-scrollbar::before {
+    background-color: #b34045 !important;
+  }

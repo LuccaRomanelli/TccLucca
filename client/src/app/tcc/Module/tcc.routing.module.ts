@@ -4,12 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import {
   AppContainerComponent,
   LoginComponent,
-  PacienteComponent,
+  PacienteListComponent,
+  PacienteFormComponent,
   PulseiraListComponent,
   PulseiraFormComponent,
   ConexaoComponent,
   DadosComponent,
-  UserComponent
+  UserListComponent,
+  UserFormComponent
 } from '../Components'
 import { 
   LoginRouteGuard,
@@ -24,7 +26,15 @@ const routes: Routes = [
     children:[
       {
         path: 'paciente',
-        component: PacienteComponent
+        component: PacienteListComponent
+      },
+      {
+        path: 'paciente/nova',
+        component: PacienteFormComponent
+      },
+      {
+        path: 'paciente/editar/:id',
+        component: PacienteFormComponent
       },
       {
         path: 'pulseira',
@@ -48,7 +58,15 @@ const routes: Routes = [
       },
       {
         path: 'user',
-        component: UserComponent
+        component: UserListComponent
+      },
+      {
+        path: 'user/editar/:id',
+        component: UserFormComponent
+      },
+      {
+        path: 'user/nova',
+        component: UserFormComponent
       },
       {
         path: '**',

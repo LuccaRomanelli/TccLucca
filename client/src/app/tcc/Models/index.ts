@@ -5,3 +5,6 @@ export * from './menu.model';
 export * from './pulseira.model';
 export * from './filter.model';
 export * from './delete-modal.model';
+export * from './data.model';
+export * from './paciente.model';
+export * from './conexao.model';

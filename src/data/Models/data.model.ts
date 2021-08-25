@@ -10,7 +10,7 @@ export class CreateDataDTO {
   
     @IsNotEmpty()
     @ApiProperty()
-    time_utc: string;
+    time_utc: Date;
   
     @IsNotEmpty()
     @ApiProperty()

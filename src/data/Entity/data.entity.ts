@@ -13,7 +13,7 @@ export class DataEntity {
 
   @Column()
   @ApiProperty()
-  time_utc: string;
+  time_utc: Date;
 
   @Column()
   @ApiProperty()

@@ -6,7 +6,7 @@ import { IsNotEmpty, IsNumberString, Validate } from 'class-validator';
 export class CreateConexaoDTO {  
     @IsNotEmpty()
     @ApiProperty()
-    pulseiraFk: number;
+    pulseiraFkId: string;
   
     @IsNotEmpty()
     @ApiProperty()
@@ -17,7 +17,7 @@ export class CreateConexaoDTO {
 export class UpdateConexaoDTO {
     @IsNotEmpty()
     @ApiProperty()
-    pulseiraFk: number;
+    pulseiraFkId: string;
   
     @IsNotEmpty()
     @ApiProperty()

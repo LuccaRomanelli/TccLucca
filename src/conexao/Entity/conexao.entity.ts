@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { PacienteEntity } from '../../paciente/Entity';
-import { PulseiraEntity } from '../../pulseira/Entity';
 
 @Entity()
 export class ConexaoEntity {
@@ -9,10 +8,9 @@ export class ConexaoEntity {
   @ApiProperty()
   id?: number;
 
-  @ManyToOne(() => PulseiraEntity)
-  @JoinColumn()
+  @Column()
   @ApiProperty()
-  pulseiraFk: number;
+  pulseiraFkId: string;
 
   @ManyToOne(() => PacienteEntity)
   @JoinColumn()
