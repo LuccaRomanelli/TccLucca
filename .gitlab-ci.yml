@@ -15,9 +15,6 @@ build_staging:
   script:
     - npm run install:all
     - npm run build:all:dev
-  artifacts:
-    paths:
-      - dist/
 
 build_prod:
   stage: build
@@ -28,9 +25,6 @@ build_prod:
   script:
     - npm run install:all
     - npm run build:all:prod
-  artifacts:
-    paths:
-      - dist/
 
 compact_prod:
   stage: compact
@@ -55,6 +49,7 @@ compact_prod:
   artifacts:
     paths:
       - label.backend.txt
+      - $ZIP_BACKEND
 
 deploy_prod:
   stage: deploy
