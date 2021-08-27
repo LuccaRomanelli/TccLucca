@@ -28,14 +28,10 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
-                        <mat-form-field >
-                            <mat-label>Sexo</mat-label>
-                            <mat-select formControlName="sexo">
-                                <mat-option [value]="homem" >Homem</mat-option>
-                                <mat-option [value]="mumlher" >Mulher</mat-option>
-                            </mat-select>
+                        <mat-form-field>
+                            <input matInput placeholder="Sexo" formControlName="sexo">
                             <mat-error *ngIf="pacienteForm.controls.sexo.hasError('required')">
-                                Idade é obrigatório
+                                Sexo é obrigatório
                             </mat-error>
                         </mat-form-field>
                     </div>
