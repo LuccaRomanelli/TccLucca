@@ -25,7 +25,36 @@ export class PacienteService {
       }, err => {
           this.feedbackService.showAlert(err.error.message, 'danger')
       })
+  }
 
+  async getPacienteById(id: number):Promise<PacienteDTO> {
+    const GetPaciente = await this.http.get<PacienteDTO>(`${API_URL}/paciente/${id}`).toPromise().catch(err=>{
+      this.feedbackService.showAlert(err.error.message,'danger');
+    });
+
+    if(GetPaciente){
+      return GetPaciente;
+    }
+  }
+
+  async cratePaciente(newPaciente:PacienteDTO):Promise<PacienteDTO>{
+    const CreateResponse = await this.http.post<PacienteDTO>(`${API_URL}/paciente`,newPaciente).toPromise().catch(err=>{
+      this.feedbackService.showAlert(err.error.message,'danger');
+    });
+
+    if(CreateResponse){
+      return CreateResponse;
+    }
+  }
+
+  async updatePaciente(id:number, pulseira:PacienteDTO) {
+    const EditResponse = await this.http.put(`${API_URL}/paciente/${id}`,pulseira).toPromise().catch(err=>{
+      this.feedbackService.showAlert(err.error.message,'danger');
+    });
+
+    if(EditResponse){
+      return EditResponse;
+    }
   }
 
   private setPacientesList(newPacientesList: PacienteDTO[]){
@@ -36,4 +65,12 @@ export class PacienteService {
     return this.pacientesList.asObservable();
   }
 
+  deletePaciente(id:string) {
+    return this.http.delete(`${API_URL}/pacientes/${id}`).subscribe(res=>{
+      this.getAllPacientes();
+    },
+    err=>{
+      this.feedbackService.showAlert(err.error.mensagem,'danger');
+    });
+  }
 }

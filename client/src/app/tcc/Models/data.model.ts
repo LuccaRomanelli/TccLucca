@@ -3,5 +3,5 @@ export interface DataDTO{
     heart_Rate: string;
     temperature_degC: string;
     oximetry: string;
-    blood_pressure: string;
+    position: string;
 }
