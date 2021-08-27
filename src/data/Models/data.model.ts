@@ -42,7 +42,7 @@ export class CreateDataDTO {
   
     @IsNotEmpty()
     @ApiProperty()
-    blood_pressure: string;
+    position: string;
 }
 
 export class DataIdPath {

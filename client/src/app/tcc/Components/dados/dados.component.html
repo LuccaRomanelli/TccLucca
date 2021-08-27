@@ -2,7 +2,7 @@
   <form [formGroup]='dataForm' novalidate>
     <mat-card>
       <mat-card-header>
-          <span>Visualizar Data</span>
+          <h1>Visualizar Data</h1>
       </mat-card-header>
       <mat-card-content>
         <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
@@ -67,34 +67,34 @@
           <div class="mat-elevation-z8" *ngIf="currentPlataform !== Plataform.Mobile">
             <table mat-table [dataSource]="tableDataSource" matSort>
         
-              <!-- Time UTC Column -->
+              <!-- Data Column -->
               <ng-container matColumnDef="time_utc">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Time UTC </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
                 <td mat-cell *matCellDef="let row"> {{formatDate(row.time_utc)}} </td>
               </ng-container>
     
-              <!-- Heart Rate Column -->
+              <!-- Batimento Cardiaco Column -->
               <ng-container matColumnDef="heart_Rate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Heart Rate </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Batimento Cardiaco </th>
                 <td mat-cell *matCellDef="let row"> {{row.heart_Rate}} </td>
               </ng-container>
   
-              <!-- Temperature Column -->
+              <!-- Temperatura Column -->
               <ng-container matColumnDef="temperature_degC">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperatura </th>
                 <td mat-cell *matCellDef="let row"> {{row.temperature_degC}} </td>
               </ng-container>
   
-              <!-- Oximetry Column -->
+              <!-- Oximetria Column -->
               <ng-container matColumnDef="oximetry">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Oximetry </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Oximetria </th>
                 <td mat-cell *matCellDef="let row"> {{row.oximetry}} </td>
               </ng-container>
   
-              <!-- Blood Pressure Column -->
-              <ng-container matColumnDef="blood_pressure">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Blood Pressure </th>
-                <td mat-cell *matCellDef="let row"> {{row.blood_pressure}} </td>
+              <!-- Posição Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Posição </th>
+                <td mat-cell *matCellDef="let row"> {{row.position}} </td>
               </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -111,24 +111,24 @@
                   <div class="mobile-card-content">
                     <h3 matLine><strong>{{data.node}}</strong></h3>
                     <span matLine >
-                      <strong>Time UTC:&nbsp;</strong>
+                      <strong>Data:&nbsp;</strong>
                       <span>{{formatDate(data.time_utc)}}</span>
                     </span>
                     <span matLine >
-                      <strong>Heart Rate:&nbsp;</strong>
+                      <strong>Batimento Cardiaco:&nbsp;</strong>
                       <span>{{data.heart_Rate}}</span>
                     </span>
                     <span matLine >
-                      <strong>Temperature:&nbsp;</strong>
+                      <strong>Temperatura:&nbsp;</strong>
                       <span>{{data.temperature_degC}}</span>
                     </span>
                     <span matLine >
-                      <strong>Oximetry:&nbsp;</strong>
+                      <strong>Oximetria:&nbsp;</strong>
                       <span>{{data.oximetry}}</span>
                     </span>
                     <span matLine >
-                      <strong>Blood Pressure:&nbsp;</strong>
-                      <span>{{data.blood_pressure}}</span>
+                      <strong>Posição:&nbsp;</strong>
+                      <span>{{data.position}}</span>
                     </span>
                   </div>
                 </div>

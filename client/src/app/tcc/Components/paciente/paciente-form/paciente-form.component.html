@@ -1,1 +1,103 @@
-<p>paciente-form works!</p>
+<div class="container">
+    <form [formGroup]='pacienteForm' novalidate>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{title}} Paciente</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome" formControlName="nome">
+                            <mat-error *ngIf="pacienteForm.controls.nome.hasError('required')">
+                                Nome é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Idade" formControlName="idade">
+                            <mat-error *ngIf="pacienteForm.controls.idade.hasError('required')">
+                                Idade é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field >
+                            <mat-label>Sexo</mat-label>
+                            <mat-select formControlName="sexo">
+                                <mat-option [value]="homem" >Homem</mat-option>
+                                <mat-option [value]="mumlher" >Mulher</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="pacienteForm.controls.sexo.hasError('required')">
+                                Idade é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Telefone" formControlName="telefone" [mask]="TelefoneMask" [dropSpecialCharacters]="false">
+                            <mat-error *ngIf="pacienteForm.controls.telefone.hasError('required')">
+                                Telefone é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Contato de Emergencia" formControlName="contatoEmergencia">
+                            <mat-error *ngIf="pacienteForm.controls.contatoEmergencia.hasError('required')">
+                                Contato de Emergencia é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Telefone Emergencia" formControlName="telefoneEmergencia" [mask]="TelefoneMask" [dropSpecialCharacters]="false">
+                            <mat-error *ngIf="pacienteForm.controls.telefoneEmergencia.hasError('required')">
+                                Telefone Emergencia é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="CPF" formControlName="cpf" [mask]="CpfMask" [dropSpecialCharacters]="false">
+                            <mat-error *ngIf="pacienteForm.controls.cpf.hasError('required')">
+                                CPF é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Sintomas" formControlName="sintomas">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Historico" formControlName="historico">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="save()" [disabled]="disableButton">
+                    Salvar 
+                </button>
+                <button mat-raised-button color="accent" (click)="cancel()" [disabled]="disableButton">
+                    Cancelar 
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

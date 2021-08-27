@@ -45,6 +45,6 @@ export class DataEntity {
 
   @Column()
   @ApiProperty()
-  blood_pressure: string;
+  position: string;
 
 }

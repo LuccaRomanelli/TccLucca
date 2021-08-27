@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PacienteDTO, Plataform, FilterOptions, DeleteModalDTO } from '../../../Models';
-import { PulseiraService, PlataformService } from '../../../Services';  //paciente
+import { PacienteService, PlataformService } from '../../../Services'; 
 import { TranslatePaginator } from '../../../Utils';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -63,7 +63,7 @@ export class PacienteListComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSort,{static: false}) sort: MatSort;
 
   constructor(
-    private readonly pulseiraService:PulseiraService,  //paciente
+    private readonly pacienteService:PacienteService, 
     private readonly plataformService:PlataformService,
     private readonly dialog:MatDialog,
     private readonly router:Router
@@ -71,10 +71,10 @@ export class PacienteListComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
-    this.pulseiraService.getAllPulseiras();  //paciente
-    // this.pulseiraService.getPacientList().subscribe(pulseiras=>{
-    //   this.setDataSource(pulseiras);
-    // })
+    this.pacienteService.getAllPacientes();  //paciente
+    this.pacienteService.getPacientesList().subscribe(pacientes=>{
+      this.setDataSource(pacientes);
+    })
     this.plataformService.getPlataform().subscribe(currentPlataform=>{
       this.currentPlataform = currentPlataform;
       if(this.currentPlataform !== Plataform.Mobile){
@@ -114,7 +114,7 @@ export class PacienteListComponent implements OnInit,AfterViewInit {
     const DialogRef = this.dialog.open(DeleteModalComponent,{data: data});
     DialogRef.afterClosed().subscribe((result: boolean)=>{
       if(result){
-        this.pulseiraService.deletePulseira(idToDelete); //paciente
+        this.pacienteService.deletePaciente(idToDelete); //paciente
       }
     })
   }

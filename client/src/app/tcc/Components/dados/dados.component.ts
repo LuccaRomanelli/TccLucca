@@ -32,7 +32,7 @@ export const DATE_FORMATS: MatDateFormats = {
 })
 export class DadosComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['time_utc', 'heart_Rate','temperature_degC', 'oximetry', 'blood_pressure'];
+  displayedColumns: string[] = ['time_utc', 'heart_Rate','temperature_degC', 'oximetry', 'position'];
   pacientesDataSource: MatTableDataSource<PacienteDTO>;
   tableDataSource: MatTableDataSource<DataDTO>;
   currentPlataform: string;

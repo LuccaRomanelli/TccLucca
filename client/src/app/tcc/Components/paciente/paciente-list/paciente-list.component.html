@@ -63,12 +63,6 @@
                         <td mat-cell *matCellDef="let row"> {{row.telefoneEmergencia}} </td>
                     </ng-container>
 
-                    <!-- telefoneEmergencia Column -->
-                    <ng-container matColumnDef="telefoneEmergencia">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone de Emergencia </th>
-                        <td mat-cell *matCellDef="let row"> {{row.telefoneEmergencia}} </td>
-                    </ng-container>
-
                     <!-- cpf Column -->
                     <ng-container matColumnDef="cpf">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
@@ -106,21 +100,41 @@
             </div>
             <div *ngIf="currentPlataform === Plataform.Mobile" class="mobile-table">
                 <mat-nav-list>
-                    <!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-<!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-                    <!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
                     <div *ngFor="let paciente of dataSource.filteredData" class="mobile-table-container">
                         <div class="mobile-card">
                             <div class="mobile-card-content">
-                                <h3 matLine><strong>{{paciente.node}}</strong></h3>
+                                <h3 matLine><strong>{{paciente.nome}}</strong></h3>
                                 <span matLine >
-                                    <strong>Status:&nbsp;</strong>
-                                    <span>{{paciente.status}}</span>
+                                    <strong>Idade:&nbsp;</strong>
+                                    <span>{{paciente.idade}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Sexo:&nbsp;</strong>
+                                    <span>{{paciente.sexo}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Telefone:&nbsp;</strong>
+                                    <span>{{paciente.telefone}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Contato de Emergencia:&nbsp;</strong>
+                                    <span>{{paciente.contatoEmergencia}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Telefone de Emergencia:&nbsp;</strong>
+                                    <span>{{paciente.telefoneEmergencia}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Cpf:&nbsp;</strong>
+                                    <span>{{paciente.cpf}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Sintomas:&nbsp;</strong>
+                                    <span>{{paciente.sintomas}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Historico:&nbsp;</strong>
+                                    <span>{{paciente.historico}}</span>
                                 </span>
                             </div>
                             <div class="mobile-card-actions">
