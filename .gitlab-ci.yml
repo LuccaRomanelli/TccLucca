@@ -15,6 +15,9 @@ build_staging:
   script:
     - npm run install:all
     - npm run build:all:dev
+  artifacts:
+    paths:
+      - dist/
 
 build_prod:
   stage: build
@@ -25,6 +28,33 @@ build_prod:
   script:
     - npm run install:all
     - npm run build:all:prod
+  artifacts:
+    paths:
+      - dist/
+
+compact_staging:
+  stage: compact
+  environment:
+    name: staging
+  only:
+    - develop
+  dependencies:
+    - build_staging
+  script:
+    - export VERSION=`date "+%Y%m%d-%H%M%S"`
+    - export VERSION_LABEL_BACKEND=Tcc_Backend_Prod-$VERSION
+    - export ZIP_BACKEND=$VERSION_LABEL_BACKEND.zip
+    - apt-get update --assume-yes
+    - apt-get install zip --assume-yes
+    - apt-get install python-pip --assume-yes
+    - zip -r $ZIP_BACKEND dist/ client/package.json client/package-lock.json package.json package-lock.json .npmrc Procfile
+    - echo "$VERSION_LABEL_BACKEND" > label.backend.txt
+    - cp $ZIP_BACKEND build.zip
+  artifacts:
+    paths:
+      - label.backend.txt
+      - build.zip
+  when: manual
 
 compact_prod:
   stage: compact
@@ -41,15 +71,16 @@ compact_prod:
     - apt-get update --assume-yes
     - apt-get install zip --assume-yes
     - apt-get install python-pip --assume-yes
-    - zip -r $ZIP_BACKEND dist/ client/package.json client/package-lock.json .package.json package-lock.json .npmrc Procfile
+    - zip -r $ZIP_BACKEND dist/ client/package.json client/package-lock.json package.json package-lock.json .npmrc Procfile
     - pip install awscli
     - aws s3 cp $ZIP_BACKEND s3://$S3_BUCKET_NAME/
     - aws elasticbeanstalk create-application-version --application-name $ELASTIC_BEANSTALK_PROD_NAME --version-label $VERSION_LABEL_BACKEND --description "$(git log -1 --pretty=%B)" --source-bundle S3Bucket="$S3_BUCKET_NAME",S3Key="$ZIP_BACKEND" --region $AWS_REGION
     - echo "$VERSION_LABEL_BACKEND" > label.backend.txt
+    - cp $ZIP_BACKEND build.zip
   artifacts:
     paths:
       - label.backend.txt
-      - $ZIP_BACKEND
+      - build.zip
 
 deploy_prod:
   stage: deploy
