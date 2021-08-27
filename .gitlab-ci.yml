@@ -13,7 +13,7 @@ build_staging:
   only:
     - develop
   script:
-    - npm run install:all
+    - npm run install:all:dev
     - npm run build:all:dev
   artifacts:
     paths:
@@ -26,7 +26,7 @@ build_prod:
   only:
     - main
   script:
-    - npm run install:all
+    - npm run install:all:prod
     - npm run build:all:prod
   artifacts:
     paths:
