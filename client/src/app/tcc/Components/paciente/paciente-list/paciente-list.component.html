@@ -114,20 +114,20 @@
 <!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
 <!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE --><!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
                     <!-- FAZER ESSA ADAPTAÇÃO PARA O MOBILE -->
-                    <div *ngFor="let pulseira of dataSource.filteredData" class="mobile-table-container">
+                    <div *ngFor="let paciente of dataSource.filteredData" class="mobile-table-container">
                         <div class="mobile-card">
                             <div class="mobile-card-content">
-                                <h3 matLine><strong>{{pulseira.node}}</strong></h3>
+                                <h3 matLine><strong>{{paciente.node}}</strong></h3>
                                 <span matLine >
                                     <strong>Status:&nbsp;</strong>
-                                    <span>{{pulseira.status}}</span>
+                                    <span>{{paciente.status}}</span>
                                 </span>
                             </div>
                             <div class="mobile-card-actions">
                                 <button mat-icon-button matTooltip="Editar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="editPaciente(paciente.id)">
                                     <mat-icon>edit</mat-icon>
                                 </button>
-                                <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deletePaciente(peciente.id)">
+                                <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deletePaciente(paciente.id)">
                                     <mat-icon>delete_forever</mat-icon>
                                 </button>
                             </div>

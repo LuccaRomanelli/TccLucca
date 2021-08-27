@@ -47,7 +47,7 @@ compact_prod:
     - apt-get update --assume-yes
     - apt-get install zip --assume-yes
     - apt-get install python-pip --assume-yes
-    - zip -r $ZIP_BACKEND . -x "**/node_modules/*"
+    - zip -r $ZIP_BACKEND dist/ client/package.json client/package-lock.json .package.json package-lock.json .npmrc Procfile
     - pip install awscli
     - aws s3 cp $ZIP_BACKEND s3://$S3_BUCKET_NAME/
     - aws elasticbeanstalk create-application-version --application-name $ELASTIC_BEANSTALK_PROD_NAME --version-label $VERSION_LABEL_BACKEND --description "$(git log -1 --pretty=%B)" --source-bundle S3Bucket="$S3_BUCKET_NAME",S3Key="$ZIP_BACKEND" --region $AWS_REGION

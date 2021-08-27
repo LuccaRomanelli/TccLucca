@@ -31,7 +31,8 @@ import { join } from 'path';
       synchronize: JSON.parse(process.env.DB_ENABLE_MIGRATION),
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(__dirname, '..', 'dist/client'),
+      exclude: ['/api*'],
     }),
   ],
   controllers: [AppController],
