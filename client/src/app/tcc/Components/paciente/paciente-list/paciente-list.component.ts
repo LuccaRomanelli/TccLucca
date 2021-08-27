@@ -100,9 +100,9 @@ export class PacienteListComponent implements OnInit,AfterViewInit {
     this.dataSource.filter = filterValue.toLowerCase();
   }
 
-  deletePulseira(id:string){
+  deletePaciente(id:string){
     const DeleteData: DeleteModalDTO = {
-      entity: 'pulseira',
+      entity: 'paciente',
       value: id,
       femaleGender: false,
       property: 'id'

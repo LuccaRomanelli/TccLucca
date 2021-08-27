@@ -61,7 +61,7 @@
         <div *ngIf="showDataTable">
           <mat-form-field >
             <mat-label>Valor</mat-label>
-            <input matInput (keyup)="applyFilter(selectFilter.value, inputFilter.value)" #inputFilter>
+            <input matInput (keyup)="applyFilter('nome', '')">
           </mat-form-field>
   
           <div class="mat-elevation-z8" *ngIf="currentPlataform !== Plataform.Mobile">
