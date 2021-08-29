@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConexaoComponent } from './conexao.component';
+import { ConexaoListComponent } from './conexao-list.component';
 
-describe('ConexaoComponent', () => {
-  let component: ConexaoComponent;
-  let fixture: ComponentFixture<ConexaoComponent>;
+describe('ConexaoListComponent', () => {
+  let component: ConexaoListComponent;
+  let fixture: ComponentFixture<ConexaoListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConexaoComponent ]
+      declarations: [ ConexaoListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConexaoComponent);
+    fixture = TestBed.createComponent(ConexaoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

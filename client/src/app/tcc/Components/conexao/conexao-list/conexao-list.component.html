@@ -1,0 +1,98 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <h1>Gerenciar Conexões</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="actions">
+                <mat-form-field >
+                    <mat-label>Campo</mat-label>
+                    <mat-select [value]="filterOptions[0].key" (selectionChange)="inputFilter.value=''; applyFilter(selectFilter.value, inputFilter.value)" #selectFilter>
+                        <mat-option *ngFor="let filter of filterOptions" [value]="filter.key">{{filter.label}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field >
+                    <mat-label>Valor</mat-label>
+                    <input matInput (keyup)="applyFilter(selectFilter.value, inputFilter.value)" #inputFilter>
+                </mat-form-field>
+    
+                <button *ngIf="currentPlataform !== Plataform.Mobile" mat-raised-button color="primary" (click)="createConexao()">
+                    <mat-icon>add</mat-icon>
+                    <span>Adicionar Conexão</span>
+                </button>
+    
+                <button *ngIf="currentPlataform === Plataform.Mobile" mat-fab class="mobile-button" color="primary" (click)="createConexao()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div class="mat-elevation-z8" *ngIf="currentPlataform !== Plataform.Mobile">
+                <table mat-table [dataSource]="dataSource" matSort>
+        
+                <!-- Pulseira Column -->
+                <ng-container matColumnDef="pulseiraFkId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pulseira </th>
+                  <td mat-cell *matCellDef="let row"> {{row.pulseiraFkId}} </td>
+                </ng-container>
+
+                <!-- Data Inicio Column -->
+                <ng-container matColumnDef="dataInicio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Inicio </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dataInicio}} </td>
+                </ng-container>
+
+                <!-- Data Fim Column -->
+                <ng-container matColumnDef="dataFim">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Fim </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dataFim}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">  
+                        <button mat-icon-button *ngIf="!row.dataFim" matTooltip="Fim da conexao" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="fimConexao(row.id)">
+                            <mat-icon>link_off</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deleteConexao(row.id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>                  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            <div *ngIf="currentPlataform === Plataform.Mobile" class="mobile-table">
+                <mat-nav-list>
+                    <div *ngFor="let conexao of dataSource.filteredData" class="mobile-table-container">
+                        <div class="mobile-card">
+                            <div class="mobile-card-content">
+                                <h3 matLine><strong>{{conexao.pulseiraFkId}}</strong></h3>
+                                <span matLine >
+                                    <strong>Data Inicio:&nbsp;</strong>
+                                    <span>{{conexao.dataInicio}}</span>
+                                </span>
+                                <span matLine >
+                                    <strong>Data Fim:&nbsp;</strong>
+                                    <span>{{conexao.dataFim}}</span>
+                                </span>
+                            </div>
+                            <div class="mobile-card-actions">
+                                <button mat-icon-button matTooltip="Editar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="editConexao(conexao.id)">
+                                    <mat-icon>link-off</mat-icon>
+                                </button>
+                                <button mat-icon-button matTooltip="Deletar" matTooltipClass="tool-tip" matTooltipPosition="after" (click)="deleteConexao(conexao.id)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-nav-list>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            
+        </mat-card-actions>
+    </mat-card>
+</div>
