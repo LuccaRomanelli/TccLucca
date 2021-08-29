@@ -69,14 +69,12 @@ export class ConexaoService {
   }
 
   async updateConexao(id:string, conexao:ConexaoDTO) {
-    this.feedbackservice.showAlert('Essa feature nao está disponivel','danger');
-    //const EditResponse = await this.http.put(`${API_URL}/conexao/${id}`,conexao).toPromise().catch(err=>{
-    //  this.feedbackservice.showAlert(err.error.message,'danger');
-    //});
-
-    //if(EditResponse){
-    //  return EditResponse;
-    //}
+    const EditResponse = await this.http.put(`${API_URL}/conexao/${id}`,conexao).toPromise().catch(err=>{
+      this.feedbackservice.showAlert(err.error.message,'danger');
+    });
+    if(EditResponse){
+      return EditResponse;
+    }
   }
 
   private setConexaosList (newConexaosList:ConexaoDTO[]) {

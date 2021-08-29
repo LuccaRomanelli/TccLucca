@@ -10,7 +10,7 @@ export class ConexaoService {
     constructor(
         @InjectRepository(ConexaoEntity)
         private readonly conexaosRepository: Repository<ConexaoEntity>,
-      ) {}
+    ) {}
 
     async createConexao( newConexao:ConexaoEntity ):Promise<ConexaoEntity>{
         try {
@@ -24,9 +24,10 @@ export class ConexaoService {
             throw new HttpException(err.message, 400)
         }
     }
-    async updateConexaoByIdPaciente( conexaoPacienteId:ConexaoPacientePath):Promise<UpdateResult>{
+    async updateConexaoById( conexaoId:ConexaoIdPath):Promise<UpdateResult>{
         try {
-            const Conexao = await this.getLastConexaoByIdPaciente(conexaoPacienteId);
+            console.log('Aqui')
+            const Conexao = await this.getConexaoById(conexaoId);
             Conexao.dataFim = new Date();
             const Response = await this.conexaosRepository.update(Conexao.id,Conexao)
             return Response
