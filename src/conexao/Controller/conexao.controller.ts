@@ -40,16 +40,16 @@ export class ConexaoController {
     }
 
     @UseGuards(JwtWebAuthGuard)
-    @Put(':pacienteFk')
+    @Put(':id')
     @ApiTags('conexao')
     @ApiResponse({ 
         status: 201, 
         description: 'Conexao finalizada',
         type: ConexaoEntity
         })
-    async updateConexao( @Param() conexaoPaciente:ConexaoPacientePath ):Promise<UpdateResult>{
+    async updateConexao( @Param() id:ConexaoIdPath ):Promise<UpdateResult>{
         try{
-            const Response= await this.conexaoService.updateConexaoByIdPaciente(conexaoPaciente);
+            const Response= await this.conexaoService.updateConexaoById(id);
             return Response
         } catch (err) {
             if (err instanceof HttpException) {

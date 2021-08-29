@@ -8,7 +8,8 @@ import {
   PacienteFormComponent,
   PulseiraListComponent,
   PulseiraFormComponent,
-  ConexaoComponent,
+  ConexaoListComponent,
+  ConexaoFormComponent,
   DadosComponent,
   UserListComponent,
   UserFormComponent
@@ -50,7 +51,11 @@ const routes: Routes = [
       },
       {
         path: 'conexao',
-        component: ConexaoComponent
+        component: ConexaoListComponent
+      },
+      {
+        path: 'conexao/nova',
+        component: ConexaoFormComponent
       },
       {
         path: 'dados',

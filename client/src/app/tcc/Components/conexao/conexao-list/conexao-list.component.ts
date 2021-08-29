@@ -2,32 +2,36 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDTO, Plataform, FilterOptions, DeleteModalDTO } from '../../../Models';
-import { UserService, PlataformService } from '../../../Services';
+import { ConexaoDTO, Plataform, FilterOptions, DeleteModalDTO } from '../../../Models';
+import { ConexaoService, PlataformService } from '../../../Services';
 import { TranslatePaginator } from '../../../Utils';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  selector: 'app-conexao-list',
+  templateUrl: './conexao-list.component.html',
+  styleUrls: ['./conexao-list.component.scss']
 })
-export class UserListComponent implements OnInit,AfterViewInit {
+export class ConexaoListComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['email', 'role','actions'];
+  displayedColumns: string[] = ['pulseiraFkId', 'dataInicio', 'dataFim','actions'];
   filterOptions: FilterOptions[] = [
     {
-      key: 'email',
-      label: 'E-mail'
+      key: 'pulseiraFkId',
+      label: 'Pulseira'
     },
     {
-      key: 'role',
-      label: 'Função'
+      key: 'dataInicio',
+      label: 'Data Inicio'
+    },
+    {
+      key: 'dataFim',
+      label: 'Data Fim'
     }
   ]
-  dataSource: MatTableDataSource<UserDTO>;
+  dataSource: MatTableDataSource<ConexaoDTO>;
   currentPlataform: string;
   Plataform = Plataform;
 
@@ -35,7 +39,7 @@ export class UserListComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSort,{static: false}) sort: MatSort;
 
   constructor(
-    private readonly userService:UserService,
+    private readonly conexaoService:ConexaoService,
     private readonly plataformService:PlataformService,
     private readonly dialog:MatDialog,
     private readonly router:Router
@@ -43,9 +47,9 @@ export class UserListComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
-    this.userService.getAllUsers();
-    this.userService.getUsersList().subscribe(users=>{
-      this.setDataSource(users);
+    this.conexaoService.getAllConexaos();
+    this.conexaoService.getConexaosList().subscribe(conexaos=>{
+      this.setDataSource(conexaos);
     })
     this.plataformService.getPlataform().subscribe(currentPlataform=>{
       this.currentPlataform = currentPlataform;
@@ -61,20 +65,20 @@ export class UserListComponent implements OnInit,AfterViewInit {
     TranslatePaginator(this.paginator);
   }
 
-  setDataSource(users:UserDTO[]){
-    this.dataSource = new MatTableDataSource<UserDTO>(users);
+  setDataSource(conexaos:ConexaoDTO[]){
+    this.dataSource = new MatTableDataSource<ConexaoDTO>(conexaos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterKey: string, filterValue: string) {
-    this.dataSource.filterPredicate = (data: UserDTO, filter: string) => !filter || (data[filterKey].indexOf(filter) != -1);
+    this.dataSource.filterPredicate = (data: ConexaoDTO, filter: string) => !filter || (data[filterKey].indexOf(filter) != -1);
     this.dataSource.filter = filterValue.toLowerCase();
   }
 
-  deleteUser(id:string){
+  deleteConexao(id:string){
     const DeleteData: DeleteModalDTO = {
-      entity: 'user',
+      entity: 'conexao',
       value: id,
       femaleGender: true,
       property: 'id'
@@ -86,17 +90,17 @@ export class UserListComponent implements OnInit,AfterViewInit {
     const DialogRef = this.dialog.open(DeleteModalComponent,{data: data});
     DialogRef.afterClosed().subscribe((result: boolean)=>{
       if(result){
-        this.userService.deleteUser(idToDelete);
+        this.conexaoService.deleteConexao(idToDelete);
       }
     })
   }
   
-  createUser(){
-    this.router.navigate(['/home/user/nova']);
+  createConexao(){
+    this.router.navigate(['/home/conexao/nova']);
   }
 
-  editUser(id:string){
-    this.router.navigate([`/home/user/editar/${id}`]);
+  fimConexao(id:string){
+    this.conexaoService.updateConexao(id,null);
   }
 
 }
