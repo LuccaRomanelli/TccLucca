@@ -42,7 +42,8 @@ import{
 } from '../Services'
 import {
   LoginRouteGuard,
-  UserLoggedRouteGuard
+  UserLoggedRouteGuard,
+  RoleRouteGuard
 } from '../Guards'
 
 
@@ -89,6 +90,7 @@ import {
     PulseiraService,
     LoginRouteGuard,
     UserLoggedRouteGuard,
+    RoleRouteGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

@@ -3,6 +3,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FilterOptions, UserDTO } from '../../../Models';
 import { UserService } from '../../../Services';
+import { RolesEnum } from '../../../Enumns';
 
 @Component({
   selector: 'app-current-user-form',
@@ -11,10 +12,9 @@ import { UserService } from '../../../Services';
 })
 export class CurrentUserFormComponent implements OnInit {
 
-  statusOptions: FilterOptions[] = [];
+  rolesOptions: FilterOptions[] = [];
   disableButton: boolean = false;
-  userId: number|null;
-  title:string;
+  userId: number;
 
   currentUserForm = this.fb.group({
     email: [null,[Validators.required]],
@@ -30,10 +30,21 @@ export class CurrentUserFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const CurrentUser = this.userService.getCurrentUser().subscribe(currentUser => {
+    Object.keys(RolesEnum).forEach(key => {
+      this.rolesOptions.push({
+        key: RolesEnum[key],
+        label: RolesEnum[key]
+      })
+    })
+
+    this.userService.getCurrentUser().subscribe(currentUser => {
       if(currentUser){
+        this.userId = currentUser.id;
         this.currentUserForm.controls.email.setValue(currentUser.email);
         this.currentUserForm.controls.role.setValue(currentUser.role);
+        if(currentUser.role !== RolesEnum.ADMIN){
+          this.currentUserForm.controls.role.disable();
+        }
       }
     });
   }
@@ -50,18 +61,7 @@ export class CurrentUserFormComponent implements OnInit {
     if(this.currentUserForm.valid){
       this.disableButtons(true);
       const UserFromForm = this.getFormAsUserDTO();
-      if(this.userId){
-        const EditResponse = await this.userService.updateUser( this.userId, UserFromForm);
-        if(EditResponse){
-          this.cancel();
-        }
-      }
-      else{
-        const CreateResponse = await this.userService.crateUser(UserFromForm);
-        if(CreateResponse){
-          this.cancel();
-        }
-      }
+      // logic here
       this.disableButtons(false);
     }
   }

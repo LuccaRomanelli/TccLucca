@@ -47,6 +47,7 @@ export class UserService {
 
   getAllUsers() {
     return this.http.get<UserDTO[]>(`${API_URL}/user`).subscribe(users=>{
+      users = users.filter(user => user.id !== this.currentUser.value.id)
       this.setUsersList(users);
     },
     err=>{

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService, PlataformService } from '../../Services';
-import { SideNavMenu, Plataform} from '../../Models';
+import { AuthService, PlataformService, UserService } from '../../Services';
+import { SideNavMenu, Plataform, UserDTO } from '../../Models';
 import { NavigationEnd, Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
+import { RolesEnum } from '../../Enumns';
 
 @Component({
   selector: 'app-app-container',
@@ -13,32 +14,38 @@ export class AppContainerComponent implements OnInit {
   
   Plataform = Plataform;
   currentPlataform: string;
+  currentUser: UserDTO;
 
   menuItens:SideNavMenu[] = [
     {
       label: "Paciente",
       route: "/home/paciente",
-      icon:"people",
+      icon: "people",
+      role: RolesEnum.STANDART
     },
     {
       label: "Pulseira",
       route: "/home/pulseira",
       icon:"watch",
+      role: RolesEnum.STANDART
     },
     {
       label: "Conexao",
       route: "/home/conexao",
       icon:"add_link",
+      role: RolesEnum.STANDART
     },
     {
       label: "Dados",
       route: "/home/dados",
       icon:"equalizer",
+      role: RolesEnum.STANDART
     },
     {
       label: "Usuários",
       route: "/home/user",
       icon:"badge",
+      role: RolesEnum.ADMIN
     },
   ];
   activeRoute:string; 
@@ -47,6 +54,7 @@ export class AppContainerComponent implements OnInit {
 
   constructor(
     private readonly authService:AuthService,
+    private readonly userService: UserService,
     private readonly router:Router,
     private readonly plataformService:PlataformService
   ) { }
@@ -63,6 +71,22 @@ export class AppContainerComponent implements OnInit {
       this.currentPlataform = currentPlataform;
       this.toggleSidenav(false)
     });
+
+    this.userService.getCurrentUser().subscribe(currentUser => {
+      this.currentUser = currentUser;
+    })
+  }
+
+  canShowMenu(menu: SideNavMenu){
+    if(menu.role !== RolesEnum.ADMIN){
+      return true
+    }
+
+    if(this.currentUser.role === RolesEnum.ADMIN){
+      return true
+    }
+
+    return false
   }
 
   toggleSidenav(status?: boolean){

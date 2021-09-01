@@ -4,7 +4,7 @@
         </mat-toolbar>
         <ngx-simplebar>
             <div *ngFor="let menu of menuItens">
-                <div class="menuIten" [ngClass]="{'active': checkIfIsActive(menu.route)}" (click)="redirect(menu.route)">
+                <div *ngIf="canShowMenu(menu)" class="menuIten" [ngClass]="{'active': checkIfIsActive(menu.route)}" (click)="redirect(menu.route)">
                     <mat-icon>{{menu.icon}}</mat-icon>
                     <span>{{menu.label}}</span>
                 </div>
@@ -26,8 +26,8 @@
             </button>
             <span>Tcc do Lucca</span>
             <div class="user-info">
-                <ngx-avatar class="avatar" name="John Doe" [round]="true" size="40" (click)="redirect('home/user/current')"></ngx-avatar>
-                <span>John Doe</span>
+                <ngx-avatar class="avatar" [name]="currentUser.email.split('@')[0]" [round]="true" size="40" (click)="redirect('home/user/current')"></ngx-avatar>
+                <span>{{currentUser.email.split('@')[0]}}</span>
             </div>
         </mat-toolbar>
 
