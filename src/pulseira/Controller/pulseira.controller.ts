@@ -78,8 +78,8 @@ export class PulseiraController {
     }
 
     @UseGuards(JwtWebAuthGuard)
-    @Get()
-    @ApiTags('pulseira/disponivel')
+    @Get('/disponivel/')
+    @ApiTags('pulseira')
     async getAllPulseiraDisponiveis():Promise<PulseiraEntity[]>{
         try{
             const Response= await this.pulseiraService.getAllPulseirasDisponiveis();
