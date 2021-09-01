@@ -46,6 +46,21 @@ export class PulseiraService {
             throw new HttpException(err.message, 400)
         }
     }
+    async getAllPulseirasDisponiveis():Promise<PulseiraEntity[]>{
+        try {
+            const Response = await this.pulseirasRepository.find({
+                where: {
+                    status: 'disponivel'
+                }
+            })
+            return Response
+        } catch (err){
+            if (err instanceof HttpException) {
+                throw err
+            }                 
+            throw new HttpException(err.message, 400)
+        }
+    }
     async getPulseiraById(pulseiraId:PulseiraIdPath):Promise<PulseiraEntity>{
         try {
             const Response = await this.pulseirasRepository.findOne(pulseiraId.id)
