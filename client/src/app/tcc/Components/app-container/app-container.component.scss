@@ -58,6 +58,25 @@ mat-sidenav-content{
     z-index: 99;
     height: 50px;
     background-color: $primary_color;
+
+    .user-info{
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+
+      .avatar ::ng-deep .avatar-container  {
+        cursor: pointer;
+      }
+
+      .avatar ::ng-deep .avatar-content {
+        background-color: $second-color !important;
+      }
+
+      span{
+        font-size: 1em;
+        margin-left: 1em;
+      }
+    }
   }
 
   ngx-simplebar {

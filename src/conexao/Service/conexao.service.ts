@@ -26,7 +26,6 @@ export class ConexaoService {
     }
     async updateConexaoById( conexaoId:ConexaoIdPath):Promise<UpdateResult>{
         try {
-            console.log('Aqui')
             const Conexao = await this.getConexaoById(conexaoId);
             Conexao.dataFim = new Date();
             const Response = await this.conexaosRepository.update(Conexao.id,Conexao)

@@ -39,15 +39,12 @@ export class DataService {
     }
     async getDataById(dataId:DataIdPath,dataInicio:number,dataFim:number):Promise<DataEntity[]>{
         try {
-            console.log(new Date(dataInicio).toISOString())
-            console.log(new Date(dataFim).toISOString())
             const Response = await this.dataRepository.find({
                 where: {
                     node: dataId.node,
                     time_utc: Between(new Date(dataInicio).toISOString(), new Date(dataFim).toISOString()), 
                 }
             })
-            console.log(Response)
             if(!Response.length){
                 throw new HttpException('Dado não encontrado',404)
             }

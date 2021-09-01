@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { LoadingInterceptor, AuthInterceptor} from '../Interceptors';
 import { CookieService } from 'ngx-cookie-service';
+import { AvatarModule } from 'ngx-avatar';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { MaterialModule } from '../../material';
 import {
@@ -20,6 +21,7 @@ import {
   DadosComponent,
   UserListComponent,
   UserFormComponent,
+  CurrentUserFormComponent,
   DeleteModalComponent
 } from '../Components';
 import { 
@@ -60,6 +62,7 @@ import {
     DadosComponent,
     UserListComponent,
     UserFormComponent,
+    CurrentUserFormComponent,
     DeleteModalComponent
   ],
   imports: [
@@ -71,7 +74,8 @@ import {
     MaterialModule,
     FlexModule,
     SimplebarAngularModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    AvatarModule
   ],
   providers:[
     AuthService,

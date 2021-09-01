@@ -3,9 +3,10 @@ import { PassportStrategy } from '@nestjs/passport';
 import { HttpException, Injectable } from '@nestjs/common';
 import { JWTWebPayload } from '../Models';
 import { AuthService } from '../Services';
+import { RolesEnum } from '../Enums';
 
 @Injectable()
-export class JwtWebStrategy extends PassportStrategy(Strategy,'JwtWebStrategy') {
+export class JwtWebAdminStrategy extends PassportStrategy(Strategy,'JwtWebAdminStrategy') {
   constructor(
       private readonly authService:AuthService
   ) {
@@ -19,6 +20,9 @@ export class JwtWebStrategy extends PassportStrategy(Strategy,'JwtWebStrategy') 
   async validate(payload: JWTWebPayload) {
     try {
         const User = await this.authService.validateUserJWT({email:payload.email,password:payload.password});
+        if(User.role !== RolesEnum.ADMIN){
+          throw new HttpException('Permissões insuficientes', 403)
+        }
         return User;
     } catch (err){
         if (err instanceof HttpException) {

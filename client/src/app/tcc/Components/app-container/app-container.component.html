@@ -25,6 +25,10 @@
               <mat-icon>menu</mat-icon>
             </button>
             <span>Tcc do Lucca</span>
+            <div class="user-info">
+                <ngx-avatar class="avatar" name="John Doe" [round]="true" size="40" (click)="redirect('home/user/current')"></ngx-avatar>
+                <span>John Doe</span>
+            </div>
         </mat-toolbar>
 
         <ngx-simplebar>

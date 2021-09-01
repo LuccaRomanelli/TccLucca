@@ -12,6 +12,7 @@ import {
   ConexaoFormComponent,
   DadosComponent,
   UserListComponent,
+  CurrentUserFormComponent,
   UserFormComponent
 } from '../Components'
 import { 
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'user',
         component: UserListComponent
+      },
+      {
+        path: 'user/current',
+        component: CurrentUserFormComponent
       },
       {
         path: 'user/editar/:id',

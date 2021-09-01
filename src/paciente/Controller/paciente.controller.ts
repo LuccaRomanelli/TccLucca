@@ -67,7 +67,6 @@ export class PacienteController {
     @ApiTags('paciente')
     async getAllPaciente():Promise<PacienteEntity[]>{
         try{
-            console.log('Entrou aqui');
             const Response= await this.pacienteService.getAllPacientes();
             return Response
         } catch (err) {
@@ -83,7 +82,6 @@ export class PacienteController {
     @ApiTags('paciente')
     async getLastConexaoByPaciente( @Body() nomePaciente:NomePacientePath):Promise<PacienteEntity>{
         try{
-            console.log('Entrou aqui');
             const Response= await this.pacienteService.getPacienteByNome(nomePaciente);
             return Response
         } catch (err) {
