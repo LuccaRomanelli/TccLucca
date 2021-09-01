@@ -29,8 +29,43 @@
                             </mat-error>
                           </mat-form-field>
                     </div>
+                </div>
 
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start" class="switch">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-slide-toggle (change)="setShowPassordFields($event)">
+                        Alterar Senha
+                        </mat-slide-toggle>
+                    </div>
 
+                </div>
+
+                <div *ngIf="showPassordFields" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Nova senha" formControlName="newPassword">
+                            <mat-error *ngIf="currentUserForm.controls.newPassword.hasError('required')">
+                                Nova senha é obrigatória
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+      
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Confirme a nova senha" formControlName="newPasswordConfirm">
+                            <mat-error *ngIf="currentUserForm.controls.newPasswordConfirm.hasError('required')">
+                                Confirmação da nova senha é obrigatória
+                            </mat-error>
+                            <mat-error *ngIf="!currentUserForm.controls.newPasswordConfirm.hasError('required') && currentUserForm.controls.newPasswordConfirm.invalid">
+                                As senhas devem ser iguais
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
 
             </mat-card-content>

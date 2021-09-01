@@ -31,47 +31,47 @@ const routes: Routes = [
     children:[
       {
         path: 'paciente',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PacienteListComponent
       },
       {
         path: 'paciente/nova',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PacienteFormComponent
       },
       {
         path: 'paciente/editar/:id',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PacienteFormComponent
       },
       {
         path: 'pulseira',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PulseiraListComponent,
       },
       {
         path: 'pulseira/nova',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PulseiraFormComponent,
       },
       {
         path: 'pulseira/editar/:id',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: PulseiraFormComponent,
       },
       {
         path: 'conexao',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: ConexaoListComponent
       },
       {
         path: 'conexao/nova',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: ConexaoFormComponent
       },
       {
         path: 'dados',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: DadosComponent
       },
       {
@@ -81,7 +81,7 @@ const routes: Routes = [
       },
       {
         path: 'user/current',
-        data: {'role': RolesEnum.STANDART},
+        data: {'role': RolesEnum.STANDARD},
         component: CurrentUserFormComponent
       },
       {

@@ -22,7 +22,6 @@ export class UserService {
         try {
             if(!newUser.password){
                 newUser.password = this.generateRandomPassword();
-                console.log(newUser.password)
             }
             const UserPassordWithoutHash = newUser.password;
             newUser.password = await this.authService.hashPassword(newUser.password);
@@ -39,9 +38,11 @@ export class UserService {
     async updateUserById( userId:UserIdPath, userToUpdate:UpdateUserDTO, isAdmin: boolean ):Promise<UpdateResult>{
         try {
             const FoundedUser = await this.getUserById(userId);
-
+            let generateNewToken: boolean = false;
+            
             if(userToUpdate.password){
                 userToUpdate.password = await this.authService.hashPassword(userToUpdate.password);
+                generateNewToken = true;
             }
 
             if(userToUpdate.role && FoundedUser.role !== userToUpdate.role){
@@ -50,7 +51,13 @@ export class UserService {
                 }
             }
 
-            const Response = await this.usersRepository.update(userId.id,{...FoundedUser, ...userToUpdate})
+            const Response = await this.usersRepository.update(userId.id,{...FoundedUser, ...userToUpdate});
+
+            if(generateNewToken){
+                const LoginResponse = await this.authService.login({...FoundedUser, ...userToUpdate});
+                Response['newCredentials'] = LoginResponse
+            }
+
             return Response
         } catch (err){
             if (err instanceof HttpException) {

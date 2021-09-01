@@ -21,25 +21,25 @@ export class AppContainerComponent implements OnInit {
       label: "Paciente",
       route: "/home/paciente",
       icon: "people",
-      role: RolesEnum.STANDART
+      role: RolesEnum.STANDARD
     },
     {
       label: "Pulseira",
       route: "/home/pulseira",
       icon:"watch",
-      role: RolesEnum.STANDART
+      role: RolesEnum.STANDARD
     },
     {
       label: "Conexao",
       route: "/home/conexao",
       icon:"add_link",
-      role: RolesEnum.STANDART
+      role: RolesEnum.STANDARD
     },
     {
       label: "Dados",
       route: "/home/dados",
       icon:"equalizer",
-      role: RolesEnum.STANDART
+      role: RolesEnum.STANDARD
     },
     {
       label: "Usuários",

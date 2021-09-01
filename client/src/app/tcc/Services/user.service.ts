@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { FeedbackService } from './feedback.service';
+import { CookieService } from 'ngx-cookie-service';
 
 const {API_URL} = environment;
 @Injectable({
@@ -17,6 +18,7 @@ export class UserService {
   constructor(
     private readonly http:HttpClient,
     private readonly feedbackservice:FeedbackService,
+    private readonly cookieService: CookieService
   ) { 
     const CurrentUser = this.getCurrentUserFromLocalStorage();
     if(CurrentUser){
@@ -89,6 +91,11 @@ export class UserService {
       this.feedbackservice.showAlert(err.error.message,'danger');
     });
 
+    if(EditResponse['newCredentials']){
+      this.setCurrentUser(EditResponse['newCredentials']['user'])
+      this.setAuthToken(EditResponse['newCredentials']['accessToken'], EditResponse['newCredentials']['expiresIn'])
+    }
+
     if(EditResponse){
       return EditResponse;
     }
@@ -100,5 +107,12 @@ export class UserService {
 
   getUsersList():Observable<UserDTO[]> {
     return this.usersList.asObservable();
+  }
+
+  private setAuthToken(accessToken:string, expiresIn:number){
+    const ExpirationTimeStamp = new Date().getTime()+expiresIn*1000;
+    const ExpirationDate = new Date(ExpirationTimeStamp);
+    this.cookieService.set('JWT_TOKEN',accessToken,ExpirationDate,'/');
+    this.cookieService.set('JWT_EXPIRATION',ExpirationTimeStamp.toString(),ExpirationDate,'/');
   }
 }
