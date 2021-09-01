@@ -73,6 +73,7 @@ export class ConexaoService {
       this.feedbackservice.showAlert(err.error.message,'danger');
     });
     if(EditResponse){
+      this.getAllConexaos();
       return EditResponse;
     }
   }

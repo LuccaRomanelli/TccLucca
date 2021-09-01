@@ -16,15 +16,11 @@
 
             mat-form-field{
                 width: 100%;
-
-                mat-icon{
-                    transition: $time_transition;
-                }
-
-                mat-icon:hover{
-                    color: $primary-color;
-                }
             }  
+
+            .switch{
+                margin-bottom: 0.5em;
+            }
         }
     }
 }

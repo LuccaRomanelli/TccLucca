@@ -1,0 +1,82 @@
+<div class="container">
+    <form [formGroup]='currentUserForm' novalidate>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Meu Usuario</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="E-mail" formControlName="email">
+                            <mat-error *ngIf="currentUserForm.controls.email.hasError('required')">
+                                Email é obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field >
+                            <mat-label>Função</mat-label>
+                            <mat-select formControlName="role">
+                              <mat-option *ngFor="let role of rolesOptions" [value]="role.key">{{role.label}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="currentUserForm.controls.role.hasError('required')">
+                                Função é obrigatório
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start" class="switch">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-slide-toggle (change)="setShowPassordFields($event)">
+                        Alterar Senha
+                        </mat-slide-toggle>
+                    </div>
+
+                </div>
+
+                <div *ngIf="showPassordFields" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Nova senha" formControlName="newPassword">
+                            <mat-error *ngIf="currentUserForm.controls.newPassword.hasError('required')">
+                                Nova senha é obrigatória
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+      
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Confirme a nova senha" formControlName="newPasswordConfirm">
+                            <mat-error *ngIf="currentUserForm.controls.newPasswordConfirm.hasError('required')">
+                                Confirmação da nova senha é obrigatória
+                            </mat-error>
+                            <mat-error *ngIf="!currentUserForm.controls.newPasswordConfirm.hasError('required') && currentUserForm.controls.newPasswordConfirm.invalid">
+                                As senhas devem ser iguais
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="save()" [disabled]="disableButton">
+                    Salvar 
+                </button>
+                <button mat-raised-button color="accent" (click)="cancel()" [disabled]="disableButton">
+                    Cancelar 
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

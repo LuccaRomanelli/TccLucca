@@ -1,10 +1,9 @@
 import { forwardRef, HttpException, Inject, Injectable } from '@nestjs/common';
-import { CredentialsDTO, CredentialsResponseDTO } from '../Models'
+import { CredentialsDTO, CredentialsResponseDTO, JWTWebPayload } from '../Models'
 import { UserEntity } from '../../user/Entity'
 import { UserService } from 'src/user/Service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { JWTWebPayload } from '../Module';
 
 @Injectable()
 export class AuthService {

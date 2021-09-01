@@ -3,6 +3,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FilterOptions, UserDTO } from '../../../Models';
 import { UserService } from '../../../Services';
+import { RolesEnum } from '../../../Enumns';
 
 @Component({
   selector: 'app-user-form',
@@ -11,14 +12,13 @@ import { UserService } from '../../../Services';
 })
 export class UserFormComponent implements OnInit,AfterViewInit {
 
-  statusOptions: FilterOptions[] = [];
+  rolesOptions: FilterOptions[] = [];
   disableButton: boolean = false;
   userId: number|null;
   title:string;
 
   userForm = this.fb.group({
     email: [null,[Validators.required]],
-    senha: [null],
     role: [null,[Validators.required]]
   })
 
@@ -30,6 +30,12 @@ export class UserFormComponent implements OnInit,AfterViewInit {
   ) { }
 
   ngOnInit() {
+    Object.keys(RolesEnum).forEach(key => {
+      this.rolesOptions.push({
+        key: RolesEnum[key],
+        label: RolesEnum[key]
+      })
+    })
   }
 
   async ngAfterViewInit(){
@@ -79,7 +85,6 @@ export class UserFormComponent implements OnInit,AfterViewInit {
   getFormAsUserDTO():UserDTO{
     const NewUser:UserDTO = {
       id: this.userId,
-      password: this.userForm.controls.senha.value,
       email: this.userForm.controls.email.value,
       role: this.userForm.controls.role.value,
     }

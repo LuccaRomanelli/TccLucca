@@ -28,6 +28,15 @@ export class PulseiraService {
     });
   }
 
+  getAllAvailablePulseiras() {
+    return this.http.get<PulseiraDTO[]>(`${API_URL}/pulseira/disponivel`).subscribe(pulseiras=>{
+      this.setPulseirasList(pulseiras);
+    },
+    err=>{
+      this.feedbackservice.showAlert(err.error.message,'danger');
+    });
+  }
+
   async getPulseirasById(id: number):Promise<PulseiraDTO> {
     const GetPulseira = await this.http.get<PulseiraDTO>(`${API_URL}/pulseira/${id}`).toPromise().catch(err=>{
       this.feedbackservice.showAlert(err.error.message,'danger');

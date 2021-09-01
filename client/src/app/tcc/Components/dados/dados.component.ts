@@ -92,7 +92,7 @@ export class DadosComponent implements OnInit,AfterViewInit {
 
   setPacientesDataSource(pacientes:PacienteDTO[]){
     this.pacientesDataSource = new MatTableDataSource<PacienteDTO>(pacientes);
-    this.pacientesDataSource.filteredData = [];
+    this.pacientesDataSource.filteredData = this.pacientesDataSource.data.slice(0,10);
   }
 
   setDataDataSource(dados:DataDTO[]){
@@ -109,15 +109,15 @@ export class DadosComponent implements OnInit,AfterViewInit {
   }
 
   applyFilterPaciente(filterValue: string) {
-    if(filterValue.length >= 3){
+    if(filterValue.length){
       this.pacientesDataSource.filterPredicate = (data: PacienteDTO, filter: string) => !filter || (data.nome.includes(filter));
       this.pacientesDataSource.filter = filterValue;
       if(this.pacientesDataSource.filteredData.length > 10){
-        this.pacientesDataSource.filteredData.splice(10);
+        this.pacientesDataSource.filteredData.slice(0,10);
       }
     }
     else{
-      this.pacientesDataSource.filteredData = [];
+      this.pacientesDataSource.filteredData = this.pacientesDataSource.data.slice(0,10);
     }
   }
 
@@ -132,6 +132,7 @@ export class DadosComponent implements OnInit,AfterViewInit {
       }
       else{
         this.showAditionalPacienteInfo = false;
+        this.dataForm.controls.dataFim.setValue(this.maxDate);
         this.feedbackService.showAlert('Paciente não encontrado', `danger`)
         return
       }
@@ -147,6 +148,10 @@ export class DadosComponent implements OnInit,AfterViewInit {
       this.dataForm.controls.dataInicio.setValue(this.minDate);
       this.showAditionalPacienteInfo = true;
       this.currentConexion = Conexion;
+    }
+    else{
+      this.showAditionalPacienteInfo = false;
+      this.dataForm.controls.dataFim.setValue(this.maxDate);
     }
   }
 

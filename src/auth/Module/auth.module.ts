@@ -3,7 +3,7 @@ import { UserModule } from 'src/user';
 import { AuthController } from '../Controller';
 import { AuthService } from '../Services';
 import { PassportModule } from '@nestjs/passport';
-import { JwtBandStrategy, JwtWebStrategy, LocalStrategy } from '../Strategies'
+import { JwtBandStrategy, JwtWebStrategy, LocalStrategy, JwtWebAdminStrategy } from '../Strategies'
 import { JwtModule } from '@nestjs/jwt';
 import 'dotenv/config';
 
@@ -19,7 +19,7 @@ import 'dotenv/config';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService,LocalStrategy,JwtWebStrategy, JwtBandStrategy],
+  providers: [AuthService,LocalStrategy,JwtWebStrategy, JwtBandStrategy, JwtWebAdminStrategy],
   exports: [AuthService]
 })
 export class AuthModule {}

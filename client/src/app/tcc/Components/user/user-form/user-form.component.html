@@ -2,7 +2,7 @@
     <form [formGroup]='userForm' novalidate>
         <mat-card>
             <mat-card-header>
-                <mat-card-title>{{title}} Usuários</mat-card-title>
+                <mat-card-title>{{title}} Usuário</mat-card-title>
             </mat-card-header>
             <mat-card-content>
 
@@ -19,18 +19,15 @@
                     </div>
 
                     <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
-                        <mat-form-field>
-                            <input matInput placeholder="Senha" formControlName="senha" type="password">
-                        </mat-form-field>
-                    </div>
-
-                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
-                        <mat-form-field>
-                            <input matInput placeholder="Função" formControlName="role">
+                        <mat-form-field >
+                            <mat-label>Função</mat-label>
+                            <mat-select formControlName="role">
+                              <mat-option *ngFor="let role of rolesOptions" [value]="role.key">{{role.label}}</mat-option>
+                            </mat-select>
                             <mat-error *ngIf="userForm.controls.role.hasError('required')">
                                 Função é obrigatório
                             </mat-error>
-                        </mat-form-field>
+                          </mat-form-field>
                     </div>
 
 

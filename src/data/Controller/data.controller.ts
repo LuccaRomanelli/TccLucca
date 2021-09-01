@@ -58,7 +58,6 @@ export class DataController {
     @Get(':node')
     async getDataById( @Param() dataId:DataIdPath, @Query('dataInicio') dataInicio:number, @Query('dataFim') dataFim:number  ):Promise<DataEntity[]>{
         try{
-            console.log(dataInicio)
             if(!dataInicio || typeof(dataInicio) !== 'number'){
                 dataInicio = new Date().getTime();
             }
