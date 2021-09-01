@@ -78,6 +78,21 @@ export class PulseiraController {
     }
 
     @UseGuards(JwtWebAuthGuard)
+    @Get()
+    @ApiTags('pulseira/disponivel')
+    async getAllPulseiraDisponiveis():Promise<PulseiraEntity[]>{
+        try{
+            const Response= await this.pulseiraService.getAllPulseirasDisponiveis();
+            return Response
+        } catch (err) {
+            if (err instanceof HttpException) {
+                throw err
+            }                 
+            throw new HttpException(err.message, 400)
+        }
+    }
+
+    @UseGuards(JwtWebAuthGuard)
     @Get(':id')
     @ApiTags('pulseira')
     async getPulseiraById( @Param() pulseiraId:PulseiraIdPath):Promise<PulseiraEntity>{
