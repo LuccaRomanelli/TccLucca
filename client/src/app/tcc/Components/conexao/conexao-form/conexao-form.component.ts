@@ -135,7 +135,7 @@ export class ConexaoFormComponent implements OnInit {
 
   getFormAsConexao(): ConexaoDTO{
     const NewConexao: ConexaoDTO ={
-      pulseiraFkId: this.conexionForm.controls.pulseira.value.id,
+      pulseiraFkId: this.conexionForm.controls.pulseira.value.node,
       pacienteFk: this.conexionForm.controls.paciente.value.id
     }
 

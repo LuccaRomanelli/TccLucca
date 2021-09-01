@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { UserService, FeedbackService } from '../Services';
+import { UserService, FeedbackService, AuthService } from '../Services';
 import { UserDTO } from '../Models'
 import { RolesEnum } from '../Enumns';
 
@@ -12,7 +12,8 @@ export class RoleRouteGuard implements CanActivateChild {
   constructor(
     private router: Router,
     private feedbackService: FeedbackService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {
     this.userService.getCurrentUser().subscribe(currentUser => {
       this.currentUser = currentUser;
@@ -38,6 +39,9 @@ export class RoleRouteGuard implements CanActivateChild {
       else{
         return true
       }
+    }
+    else{
+      this.authService.logout();
     }
 
     this.feedbackService.showAlert('Acesso não autorizado', 'danger');
