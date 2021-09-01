@@ -85,6 +85,13 @@ export class AppContainerComponent implements OnInit {
   logout(){
     this.authService.logout(); 
   }
+
+  checkIfIsActive(menuRoute: string){
+    if(this.activeRoute.includes(menuRoute)){
+      return true
+    }
+    return false
+  }
   
   redirect(path:string){
     this.router.navigate([path]);

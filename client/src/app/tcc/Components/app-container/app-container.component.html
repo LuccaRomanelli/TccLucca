@@ -4,7 +4,7 @@
         </mat-toolbar>
         <ngx-simplebar>
             <div *ngFor="let menu of menuItens">
-                <div class="menuIten" [ngClass]="{'active': activeRoute === menu.route}" (click)="redirect(menu.route)">
+                <div class="menuIten" [ngClass]="{'active': checkIfIsActive(menu.route)}" (click)="redirect(menu.route)">
                     <mat-icon>{{menu.icon}}</mat-icon>
                     <span>{{menu.label}}</span>
                 </div>

@@ -1,1 +1,58 @@
-<h1>Esse formulário ainda não está disponível</h1>
+<div class="container">
+    <form [formGroup]='conexionForm' novalidate>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Criar Conexão</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutGap.lt-sm="0"
+                fxLayoutAlign="flex-start">
+    
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput placeholder="Paciente" [matAutocomplete]="pacientes" formControlName="paciente" (keyup)="applyFilterPaciente($event.target.value)">
+                            <mat-error *ngIf="conexionForm.controls.paciente.hasError('required')">
+                                Informe um paciente
+                            </mat-error>
+                            <button mat-icon-button matSuffix>
+                                <mat-icon>arrow_drop_down</mat-icon>
+                            </button>
+                            <mat-autocomplete #pacientes="matAutocomplete" [displayWith]="displayFnPaciente">
+                                <mat-option *ngFor="let paciente of pacientesDataSource.filteredData" [value]="paciente">
+                                {{paciente.nome}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-md="0 1 calc(33% - 16px)" fxFlex.lt-sm="100%">
+                        <mat-form-field>
+                            <input matInput name="_unique_name_here_" placeholder="Pulseira" [matAutocomplete]="pulseiras" formControlName="pulseira" (keyup)="applyFilterPulseira($event.target.value)">
+                            <mat-error *ngIf="conexionForm.controls.pulseira.hasError('required')">
+                                Informe uma pulseira
+                            </mat-error>
+                            <button mat-icon-button matSuffix>
+                                <mat-icon>arrow_drop_down</mat-icon>
+                            </button>
+                            <mat-autocomplete #pulseiras="matAutocomplete" [displayWith]="displayFnPulseira">
+                                <mat-option *ngFor="let pulseira of pulseirasDataSource.filteredData" [value]="pulseira">
+                                {{pulseira.node}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="save()" [disabled]="disableButton">
+                    Salvar 
+                </button>
+                <button mat-raised-button color="accent" (click)="cancel()" [disabled]="disableButton">
+                    Cancelar 
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>
